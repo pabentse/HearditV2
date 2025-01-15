@@ -1,25 +1,63 @@
-<!-- templates/home.html -->
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Heardit</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1>Heardit (kul versjon)</h1>
 
-{% block title %}HearditV2 - Guess the Song{% endblock %}
+    <!-- SoundCloud Iframe -->
+    <iframe 
+      id="sc-player"
+      width="100%" 
+      height="166" 
+      scrolling="no" 
+      frameborder="no" 
+      allow="autoplay"
+      src="https://w.soundcloud.com/player/?url={{ soundcloud_track | urlencode }}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+    </iframe>
 
-{% block content %}
-    <h2>Guess the Song</h2>
-    
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% else %}
-        <audio id="audio-player" controls>
-            <source src="/static/music/{{ song }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        
-        <form id="guess-form">
-            <input type="hidden" id="selected-song" value="{{ song }}">
-            <input type="text" id="guess-input" placeholder="Enter your guess here" autocomplete="off" required>
-            <button type="submit" id="guess-button">Guess</button>
-        </form>
-        
-        <div id="feedback"></div>
-    {% endif %}
-{% endblock %}
+    <!-- Store correct answer from server -->
+    <input type="hidden" id="correct-answer" value="{{ answer }}"/>
+
+    <div id="game-controls">
+      <button id="play-button">Play</button>
+      <button id="skip-button">Skip</button>
+      <form id="guess-form" style="display: inline-block;">
+        <input type="text" id="guess-input" placeholder="Guess..." autocomplete="off">
+        <button type="submit">Guess</button>
+      </form>
+    </div>
+
+    <div id="feedback"></div>
+
+    <!-- Lives displayed as hearts -->
+    <div id="lives-container">
+      <span class="life">♥</span>
+      <span class="life">♥</span>
+      <span class="life">♥</span>
+      <span class="life">♥</span>
+      <span class="life">♥</span>
+    </div>
+
+    <!-- 
+      Progress bar area: 
+      We'll have a wrapper so we can position everything relative to 100% width
+    -->
+    <div id="progress-wrapper">
+      <div id="progress-container">
+        <div id="markers-container"></div>
+        <div id="unlocked-bar"></div>
+        <div id="current-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SoundCloud widget API (NOT the SDK) -->
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+  <!-- Your custom game JS -->
+  <script src="/static/js/game.js"></script>
+</body>
+</html>

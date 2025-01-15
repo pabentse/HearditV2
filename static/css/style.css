@@ -1,0 +1,90 @@
+/* static/css/style.css */
+
+body {
+    margin: 0; 
+    padding: 0; 
+    font-family: sans-serif;
+    background: #f0f0f0;
+  }
+  
+  .game-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+  }
+  
+  /* Hearts */
+  #lives-container {
+    margin: 10px 0;
+    font-size: 1.8em;
+  }
+  .life {
+    color: red;
+    margin: 0 5px;
+  }
+  
+  /* Feedback area */
+  #feedback {
+    font-weight: bold;
+    margin: 10px 0;
+    min-height: 1.5em; /* Keep space even if empty */
+  }
+  
+  /* Progress Bar Container */
+  #progress-wrapper {
+    width: 100%;
+    margin: 20px auto;
+  }
+  
+  #progress-container {
+    position: relative;  /* so markers can be placed absolutely */
+    width: 100%;
+    max-width: 500px;
+    height: 20px;
+    margin: 0 auto;
+    background: #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  /* The "unlocked" region (green) */
+  #unlocked-bar {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
+    background: #98fb98; /* pale green */
+    pointer-events: none;
+  }
+  
+  /* The "current playback" bar (darker green) */
+  #current-bar {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
+    background: green;
+    pointer-events: none;
+  }
+  
+  /* Markers */
+  #markers-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; 
+    height: 100%;
+    pointer-events: none; /* so clicks pass through */
+  }
+  
+  /* Each vertical line for a slice boundary */
+  .slice-marker {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+  }
+  

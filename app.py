@@ -1,61 +1,65 @@
 # app.py
 from fasthtml.common import *
 import uvicorn
-import os
 import random
-import starlette
+import datetime
 from starlette.requests import Request
 from starlette.templating import Jinja2Templates
+from starlette.responses import JSONResponse
 
-
-# Initialize templates
-templates = Jinja2Templates(directory='templates')
-
+templates = Jinja2Templates(directory="templates")
 
 app = FastHTML()
 
-# Mount static files
+# Mount static files (CSS, JS, etc.)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Utility function to get base context (if needed)
-def get_base_context(request: Request):
-    return {'request': request}
+# Example SoundCloud tracks (track URL + correct answer).
+SOUNDCLOUD_TRACKS = [
+    {
+        "url": "https://api.soundcloud.com/tracks/1660314906",
+        "answer": "harlow"  # For demo only
+    },
+    {
+        "url": "https://api.soundcloud.com/tracks/590222589",
+        "answer": "malone"
+    }
+]
 
-# Route for the Home/Game Page
+def get_base_context(request: Request):
+    return {"request": request}
+
+def pick_daily_track():
+    """
+    Pick the same track for everyone on a given day.
+    We do this by seeding the random generator with today's date,
+    then pick one from the list.
+    """
+    today_str = datetime.datetime.utcnow().strftime('%Y-%m-%d')
+    random.seed(today_str)  # seed with the date so it's deterministic for everyone
+    return random.choice(SOUNDCLOUD_TRACKS)
+
 @app.get("/")
 def home(request: Request):
     context = get_base_context(request)
-    
-    # Select a random song snippet
-    music_dir = os.path.join(os.path.dirname(__file__), 'static', 'music')
-    try:
-        songs = os.listdir(music_dir)
-        selected_song = random.choice(songs)
-        song_title = os.path.splitext(selected_song)[0].lower()  # Extract song title without extension
-        context['song'] = selected_song  # Pass the selected song filename to the template
-    except FileNotFoundError:
-        context['error'] = "Music directory not found."
-    except IndexError:
-        context['error'] = "No songs available."
 
-    return templates.TemplateResponse('home.html', context)
+    # Always pick the same track for the day:
+    selected = pick_daily_track()
+    context["soundcloud_track"] = selected["url"]
+    context["answer"] = selected["answer"]
 
-# API Endpoint to Handle Guesses
+    return templates.TemplateResponse("home.html", context)
+
 @app.post("/guess")
 async def guess(request: Request):
+    """Check if the user's guess is correct."""
     data = await request.json()
-    user_guess = data.get('guess', '').strip().lower()
-    selected_song = data.get('song', '').strip().lower()
-    
-    # Extract the actual song name from the filename (e.g., 'song1' from 'song1.mp3')
-    actual_song = os.path.splitext(selected_song)[0].lower()
+    user_guess = data.get("guess", "").strip().lower()
+    correct_answer = data.get("answer", "").strip().lower()
 
-    # Simple verification: Check if the guess matches the song title
-    if user_guess == actual_song:
-        result = 'correct'
+    if user_guess == correct_answer:
+        return JSONResponse({"result": "correct"})
     else:
-        result = 'incorrect'
-
-    return {"result": result}
+        return JSONResponse({"result": "incorrect"})
 
 serve()
