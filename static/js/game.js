@@ -49,14 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     createMarkers();
   
-    // Update the "lives" hearts
-    function updateHearts() {
-      const hearts = livesContainer.querySelectorAll('.life');
-      hearts.forEach((heart, idx) => {
-        heart.style.color = (idx < usedAttempts) ? '#aaa' : 'red';
-      });
-    }
-  
     // End the game
     function endGame() {
       gameOver = true;
@@ -84,12 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (sliceIndex >= TIME_SLICES.length) {
         // No more slices => game over
         feedback.textContent = `No more lives! Correct answer was "${answer}".`;
-        updateHearts();
         endGame();
         return;
       }
       unlockedDuration = TIME_SLICES[sliceIndex];
-      updateHearts();
       updateUnlockedBar();
     }
   
@@ -108,8 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentBar.style.width = Math.min(fraction * 100, 100) + '%';
     }
   
-    // Initially set hearts & unlocked bar
-    updateHearts();
+    // Initially set unlocked bar
     updateUnlockedBar();
   
     // Wait for the widget to be ready
