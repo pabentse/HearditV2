@@ -169,3 +169,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+static/music/g1.mp3
+static/music/h2.mp3

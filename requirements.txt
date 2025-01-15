@@ -1,0 +1,5 @@
+python-fasthtml
+starlette
+jinja2
+uvicorn
+requests

@@ -1,0 +1,24 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HearditV2 - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>HearditV2</h1>
+        <nav>
+            <!-- Future navigation links can go here -->
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 HearditV2. All rights reserved.</p>
+    </footer>
+    <script src="/static/js/game.js"></script>
+</body>
+</html>

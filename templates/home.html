@@ -1,0 +1,25 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}HearditV2 - Guess the Song{% endblock %}
+
+{% block content %}
+    <h2>Guess the Song</h2>
+    
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% else %}
+        <audio id="audio-player" controls>
+            <source src="/static/music/{{ song }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <form id="guess-form">
+            <input type="hidden" id="selected-song" value="{{ song }}">
+            <input type="text" id="guess-input" placeholder="Enter your guess here" autocomplete="off" required>
+            <button type="submit" id="guess-button">Guess</button>
+        </form>
+        
+        <div id="feedback"></div>
+    {% endif %}
+{% endblock %}
