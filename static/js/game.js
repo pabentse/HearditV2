@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Loaded game.js!");
-  
+    
     // DOM Elements
     const scIframe    = document.getElementById('sc-player');
     const playButton  = document.getElementById('play-button');
@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let sliceIndex = 0;             // Which slice are we currently on?
     let unlockedDuration = 2;       // TIME_SLICES[0]
     let gameOver = false;
-  
+    let gameWon  = false;           // <-- NEW: track if puzzle was solved
+    
     // We'll allow a max of 6 attempts
     let attemptNumber = 1;
     const maxAttempts = 6;
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // This will hold all guess history for display
     // Example: [{ attempt:1, guess:"hello", status:"wrong" }, ...]
     let guessHistory = [];
-
+  
     // SoundCloud widget
     const widget = SC.Widget(scIframe);
   
@@ -46,14 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
         markersContainer.appendChild(marker);
       });
     }
-
+  
     // 2) Update unlocked bar
     function updateUnlockedBar() {
       const maxTime = TIME_SLICES[TIME_SLICES.length - 1];
       const frac = unlockedDuration / maxTime;
       unlockedBar.style.width = (frac * 100) + '%';
     }
-
+  
     // 3) Update current bar (playback)
     function updateCurrentBar(ms) {
       const maxTime = TIME_SLICES[TIME_SLICES.length - 1];
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const frac = sec / maxTime;
       currentBar.style.width = Math.min(frac * 100, 100) + '%';
     }
-
+  
     // 4) Fill a specific row in guess history
     function fillRow(attempt, guessText, status) {
       const rowEl = document.getElementById(`attempt-${attempt}`);
@@ -69,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rowEl.textContent = `${attempt} - ${guessText} (${status})`;
       }
     }
-
+  
     // 5) End game
     function endGame() {
       gameOver = true;
@@ -81,21 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Show SoundCloud iframe
       scIframe.style.display = 'block';
   
-      // Optional share button
-      const shareBtn = document.createElement('button');
-      shareBtn.textContent = 'Share result';
-      shareBtn.addEventListener('click', () => {
-        const text = `I just played Heardle-like! The answer was "${answer}".`;
-        navigator.clipboard.writeText(text)
-          .then(() => alert('Copied to clipboard!'));
-      });
-      feedback.appendChild(document.createElement('br'));
-      feedback.appendChild(shareBtn);
-
-      // After the game is over, save that state so it doesn't prompt user again if they come back
+      // Create share button
+      createShareButton();
+  
+      // After the game is over, save state so if user comes back, we don't re-start
       saveGameState();
     }
-
+  
     // 6) Move to next slice or end
     function goToNextSlice() {
       sliceIndex++;
@@ -108,14 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
       updateUnlockedBar();
       return true;
     }
-
+  
     // 7) Common function if user guessed incorrectly or skipped
     function markWrongAttempt(guessText) {
       // Mark the row visually
       fillRow(attemptNumber, guessText, "wrong");
       // Also store in our guessHistory array
       guessHistory.push({ attempt: attemptNumber, guess: guessText, status: "wrong" });
-
+  
       attemptNumber++;
       if (attemptNumber > maxAttempts) {
         feedback.textContent = `No more attempts! The correct answer was "${answer}".`;
@@ -124,53 +117,53 @@ document.addEventListener('DOMContentLoaded', () => {
         // Move to next slice
         goToNextSlice();
       }
-
+  
       // Save current state after each wrong attempt
       saveGameState();
     }
-
+  
     /* -------------------------------------------------------------------------------- */
     /* LOCAL STORAGE METHODS */
     /* -------------------------------------------------------------------------------- */
-
+  
     function getStorageKey() {
-      // A unique key for today's puzzle
-      return `heardit-state-${puzzleId}`;
+      return `heardit-state-${puzzleId}`; // A unique key for today's puzzle
     }
-
+  
     function saveGameState() {
-      // Gather all the data we want to save
       const data = {
         sliceIndex,
         unlockedDuration,
         gameOver,
+        gameWon,        // <--- Store gameWon too
         attemptNumber,
         guessHistory
       };
       localStorage.setItem(getStorageKey(), JSON.stringify(data));
     }
-
+  
     function loadGameState() {
       const saved = localStorage.getItem(getStorageKey());
       if (!saved) return; // no data
-
+  
       try {
         const data = JSON.parse(saved);
         sliceIndex       = data.sliceIndex;
         unlockedDuration = data.unlockedDuration;
         gameOver         = data.gameOver;
+        gameWon          = data.gameWon || false;
         attemptNumber    = data.attemptNumber;
         guessHistory     = data.guessHistory || [];
-
+  
         // Now restore the UI from guessHistory
         guessHistory.forEach(item => {
           fillRow(item.attempt, item.guess, item.status);
         });
-
+  
         // If the game was already over, reflect that in the UI
         if (gameOver) {
           feedback.textContent = 'You already finished this puzzle. The answer was "' + answer + '".';
-          endGame(); // calls endGame to hide guess form, show iframe, etc.
+          endGame();
         } else {
           // If the game is not over, ensure the bars reflect the loaded slice
           updateUnlockedBar();
@@ -179,36 +172,64 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Error parsing saved game data:", err);
       }
     }
-
-    // If you want to clean out old puzzles’ data in localStorage, you can do that in
-    // a separate place or by enumerating keys. But at minimum, we just use a new key daily.
-
+  
+    /* -------------------------------------------------------------------------------- */
+    /* SHARE BUTTON LOGIC */
+    /* -------------------------------------------------------------------------------- */
+    function createShareButton() {
+      const shareBtn = document.createElement('button');
+      shareBtn.textContent = 'Share result';
+  
+      shareBtn.addEventListener('click', () => {
+        // If game was won, compute how many "stars" remain
+        if (gameWon) {
+          // e.g. if user guessed on attempt #1 => score = 6
+          // attempt #6 => score = 1
+          const score = maxAttempts + 1 - attemptNumber;
+          const stars = '⭐️'.repeat(score);
+  
+          // Example: "6/6\n⭐️⭐️⭐️⭐️⭐️⭐️\n🔊 https://heardit.eu 🔊"
+          const shareText = `${score}/6\n${stars}\n🔊 https://heardit.eu 🔊`;
+          copyToClipboard(shareText);
+  
+        } else {
+          // If user failed all attempts => "0/6\n🥲\n🔊 https://heardit.eu 🔊"
+          const shareText = `0/6\n🥲\n🔊 https://heardit.eu 🔊`;
+          copyToClipboard(shareText);
+        }
+      });
+  
+      // Add share button to the feedback area
+      feedback.appendChild(document.createElement('br'));
+      feedback.appendChild(shareBtn);
+    }
+  
+    // Helper for copying
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => alert('Copied to clipboard!'))
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
+  
     /* -------------------------------------------------------------------------------- */
     /* INIT LOGIC */
     /* -------------------------------------------------------------------------------- */
-
+  
     createMarkers();
     updateUnlockedBar();
-
-    // Try loading existing game data for today's puzzle
     loadGameState();
-
-    // If for any reason you want to forcibly reset for a new puzzle day,
-    // you can call `localStorage.removeItem(getStorageKey())` or do this in Python
-    // by generating a new puzzle_id, etc.
-
+  
     /* -------------------------------------------------------------------------------- */
     /* SOUND CLOUD BINDINGS & EVENT HANDLERS */
     /* -------------------------------------------------------------------------------- */
-
+  
     widget.bind(SC.Widget.Events.READY, () => {
       console.log("SoundCloud Widget is ready.");
   
+      // Pause playback if we hit the unlocked duration
       widget.bind(SC.Widget.Events.PLAY_PROGRESS, (eventData) => {
         const ms = eventData.currentPosition;
         updateCurrentBar(ms);
-  
-        // Pause if we hit the unlocked duration
         if (ms >= unlockedDuration * 1000) {
           widget.pause();
         }
@@ -248,6 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
           if (data.result === 'correct') {
+            // Mark game as won
+            gameWon = true;
             // Fill row
             fillRow(attemptNumber, userGuess, "correct!");
             guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "correct!" });
@@ -268,4 +291,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-});
+  });
+  
