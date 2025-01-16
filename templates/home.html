@@ -6,41 +6,30 @@
 </head>
 <body>
   <div class="game-container">
+
     <h1>Heardit (kul versjon)</h1>
 
-    <!-- SoundCloud Iframe -->
-    <iframe 
-      id="sc-player"
-      width="100%" 
-      height="166" 
-      scrolling="no" 
-      frameborder="no" 
-      style="display: none;"
-      allow="autoplay"
-      src="https://w.soundcloud.com/player/?url={{ soundcloud_track | urlencode }}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-    </iframe>
+    <!-- (A) Guess History Container -->
+    <div id="guess-history"></div>
 
-    <!-- Store correct answer from server -->
-    <input type="hidden" id="correct-answer" value="{{ answer }}"/>
-
-    <div id="game-controls">
-        <button id="play-button" class="big-play-btn">
-        <!-- Unicode "play" symbol (▶) or an SVG icon -->
-        ▶
-        </button>          
-      <button id="skip-button">Skip</button>
-      <form id="guess-form" style="display: inline-block;">
-        <input type="text" id="guess-input" placeholder="Guess..." autocomplete="off">
-        <button type="submit">Guess</button>
-      </form>
+    <!-- Big Play Button -->
+    <div class="play-container">
+      <button id="play-button" class="big-play-btn">▶</button>
     </div>
 
+    <!-- Feedback Message -->
     <div id="feedback"></div>
 
-    <!-- 
-      Progress bar area: 
-      We'll have a wrapper so we can position everything relative to 100% width
-    -->
+    <!-- Guess Form -->
+    <form id="guess-form" class="guess-form">
+      <input type="text" id="guess-input" placeholder="Your guess..." autocomplete="off">
+      <div class="action-buttons">
+        <button type="button" id="skip-button" class="skip-btn">Skip</button>
+        <button type="submit" class="guess-btn">Guess</button>
+      </div>
+    </form>
+
+    <!-- Progress Bar -->
     <div id="progress-wrapper">
       <div id="progress-container">
         <div id="markers-container"></div>
@@ -48,9 +37,25 @@
         <div id="current-bar"></div>
       </div>
     </div>
+
+    <!-- Hidden field for the correct answer -->
+    <input type="hidden" id="correct-answer" value="{{ answer }}"/>
+
+    <!-- SoundCloud iframe (hidden until game ends) -->
+    <iframe 
+      id="sc-player"
+      width="100%" 
+      height="166" 
+      scrolling="no" 
+      frameborder="no"
+      style="display: none;"
+      allow="autoplay"
+      src="https://w.soundcloud.com/player/?url={{ soundcloud_track | urlencode }}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
+    </iframe>
+
   </div>
 
-  <!-- SoundCloud widget API (NOT the SDK) -->
+  <!-- SoundCloud Widget API -->
   <script src="https://w.soundcloud.com/player/api.js"></script>
   <!-- Your custom game JS -->
   <script src="/static/js/game.js"></script>

@@ -1,92 +1,85 @@
-/* static/css/style.css */
-
-body {
-    background-color: #121212;   /* Spotify-like dark background */
-    color: #FFFFFF;              /* White text */
-    margin: 0; 
-    padding: 0; 
-    font-family: sans-serif;
-  }
-  
-  .game-container {
-    max-width: 600px;
+/* A slightly wider game container */
+.game-container {
+    max-width: 800px; /* was 600px before */
     margin: 40px auto;
     padding: 20px;
     text-align: center;
-    background-color: #1e1e1e;  /* Slightly lighter than #121212 for a "card" effect */
+    background-color: #1e1e1e;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.6);
   }
   
-  /* Feedback area */
-  #feedback {
+  /* Title styling (optional) */
+  .game-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  /* Guess history styling */
+  #guess-history {
+    min-height: 40px; /* Reserve space so it doesn't jump around */
+    margin-bottom: 20px;
     font-weight: bold;
-    margin: 10px 0;
-    min-height: 1.5em; /* Keep space even if empty */
+    color: #ccc;
   }
   
-  /* Progress Bar Container */
+  /* Progress bar container remains the same (centered) */
   #progress-wrapper {
+    margin: 0 auto 30px auto; /* add bottom margin so there's space below it */
     width: 100%;
-    margin: 20px auto;
+    max-width: 600px; /* make it narrower or same as container if you like */
   }
   
+  /* Keep these from your existing code */
   #progress-container {
-    position: relative;  /* so markers can be placed absolutely */
+    position: relative;
     width: 100%;
-    max-width: 500px;
     height: 20px;
-    margin: 0 auto;
     background: #3a3a3a;
     border-radius: 4px;
     overflow: hidden;
   }
-  
-  /* The "unlocked" region (green) */
   #unlocked-bar {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 0%;
-    background: #cadace; /* pale green */
-    pointer-events: none;
-
+    background: #cadace;
     z-index: 1;
   }
-  
-  /* The "current playback" bar (darker green) */
   #current-bar {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 0%;
-    background: #1DB954; /* Spotify green */
-    pointer-events: none;
-    z-index: 2
+    background: #1DB954;
+    z-index: 2;
   }
-  
-  /* Markers */
   #markers-container {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; 
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    pointer-events: none; /* so clicks pass through */
-
     z-index: 3;
   }
+  .slice-marker {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(255,255,255,0.7);
+  }
   
-  /* Each vertical line for a slice boundary */
-.slice-marker {
-  position: absolute;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: rgba(255,255,255,0.7); /* or a color that contrasts the background */
-}
-
-.big-play-btn {
-    background-color: #1DB954; /* Spotify green */
+  /* The Play button container */
+  .play-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Reuse your big green button for the play button */
+  .big-play-btn {
+    background-color: #1DB954;
     border: none;
     border-radius: 50%;
     width: 60px;
@@ -94,17 +87,81 @@ body {
     font-size: 1.5rem;
     color: #fff;
     cursor: pointer;
-    margin: 10px;
     outline: none;
     transition: transform 0.1s ease;
   }
-  
   .big-play-btn:hover {
-    background-color: #1ed760; /* slightly brighter green on hover */
+    background-color: #1ed760;
   }
-  
   .big-play-btn:active {
     transform: scale(0.95);
+  }
+  
+  /* 
+     (E) The guess form:
+     We want the input centered, 
+     then skip on the left, guess on the right 
+  */
+  .guess-form {
+    display: flex;
+    flex-direction: column; /* stack input on top, then .action-buttons below */
+    align-items: center;    /* center horizontally */
+    margin-bottom: 20px;
+  }
+  .guess-form #guess-input {
+    width: 60%; /* or your choice to make it wide */
+    padding: 8px;
+    margin-bottom: 10px; /* space between input and the action buttons */
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #fff;
+  }
+  
+  .action-buttons {
+    display: flex;
+    width: 60%; /* match input width if you like */
+    justify-content: space-between; /* skip on left, guess on right */
+  }
+  
+  /* Skip button on the left, guess on the right */
+  .skip-btn, .guess-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
+  }
+  .skip-btn {
+    background: #444; /* dark gray */
+    color: #fff;
+  }
+  .skip-btn:hover {
+    background: #555;
+  }
+  .guess-btn {
+    background: #1DB954; /* green */
+    color: #fff;
+  }
+  .guess-btn:hover {
+    background: #1ed760;
+  }
+  
+  /* Feedback area stays the same */
+  #feedback {
+    font-weight: bold;
+    margin: 10px 0;
+    min-height: 1.5em;
+  }
+  #guess-history {
+    margin-bottom: 20px;
+    min-height: 30px; 
+    color: #ccc;        /* or #fff if you like */
+    font-weight: bold;
+  }
+  #guess-history p {
+    margin: 5px 0;
   }
   
   
