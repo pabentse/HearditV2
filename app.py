@@ -42,11 +42,14 @@ def pick_daily_track():
 @app.get("/")
 def home(request: Request):
     context = get_base_context(request)
-
     # Always pick the same track for the day:
     selected = pick_daily_track()
     context["soundcloud_track"] = selected["url"]
     context["answer"] = selected["answer"]
+
+    # Also provide a "puzzle_id" = today's date
+    today_str = datetime.datetime.utcnow().strftime('%Y-%m-%d')
+    context["puzzle_id"] = today_str
 
     return templates.TemplateResponse("home.html", context)
 
