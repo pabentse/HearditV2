@@ -1,4 +1,14 @@
 /* A slightly wider game container */
+
+/* (A) Dark background and modern font */
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif; /* or 'Roboto', sans-serif */
+  }
+
 .game-container {
     max-width: 800px; /* was 600px before */
     margin: 40px auto;
@@ -14,13 +24,19 @@
     margin-bottom: 20px;
   }
   
-  /* Guess history styling */
-  #guess-history {
-    min-height: 40px; /* Reserve space so it doesn't jump around */
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #ccc;
-  }
+  /* (B) Guess History with fixed rows */
+#guess-history {
+  width: 80%;
+  margin: 0 auto 20px auto;
+  /* This ensures each row is a set height so layout doesn't jump */
+}
+.attempt-row {
+  margin: 4px 0;
+  padding: 6px 8px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  text-align: left; /* so text is left-aligned inside the row */
+}
   
   /* Progress bar container remains the same (centered) */
   #progress-wrapper {

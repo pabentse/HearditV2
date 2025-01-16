@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Loaded game.js!");
   
-    // ----- DOM Elements -----
+    // DOM Elements
     const scIframe    = document.getElementById('sc-player');
     const playButton  = document.getElementById('play-button');
     const skipButton  = document.getElementById('skip-button');
@@ -12,35 +12,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedback    = document.getElementById('feedback');
     const answer      = document.getElementById('correct-answer').value.trim().toLowerCase();
   
-    // Progress bar elements
+    // Progress bar
     const markersContainer = document.getElementById('markers-container');
     const unlockedBar      = document.getElementById('unlocked-bar');
     const currentBar       = document.getElementById('current-bar');
   
-    // The “history” area where we show each attempt (skip/wrong/correct)
-    const guessHistoryEl = document.getElementById('guess-history');
-  
-    // ----- Time Slice Logic -----
-    const TIME_SLICES = [2, 3, 5, 9, 13];  // in seconds
-    let sliceIndex = 0;                   // which slice we’re on
-    let unlockedDuration = TIME_SLICES[sliceIndex]; 
+    // Time slices
+    const TIME_SLICES = [2, 3, 5, 9, 13];
+    let sliceIndex = 0;
+    let unlockedDuration = TIME_SLICES[sliceIndex];
     let gameOver = false;
   
-    // The maximum is the last slice (13s)
+    // Maximum slice time
     const MAX_TIME = TIME_SLICES[TIME_SLICES.length - 1];
   
-    // 
-    // We'll keep track of attemptNumber to label each row:
-    //
-    let attemptNumber = 1;  
+    // We'll allow a max of 6 attempts
+    let attemptNumber = 1;
+    const maxAttempts = 6;
   
-    // Create the SoundCloud widget
+    // SoundCloud widget
     const widget = SC.Widget(scIframe);
   
-    // ----- (A) Create Markers in progress bar -----
+    // (A) Create markers
     function createMarkers() {
-      TIME_SLICES.forEach((sliceSeconds) => {
-        const fraction = sliceSeconds / MAX_TIME;
+      TIME_SLICES.forEach((sec) => {
+        const fraction = sec / MAX_TIME;
         const leftPercent = fraction * 100;
   
         const marker = document.createElement('div');
@@ -51,118 +47,112 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     createMarkers();
   
-    // ----- (B) Update Unlocked Bar -----
+    // (B) Update unlocked bar
     function updateUnlockedBar() {
-      const fraction = unlockedDuration / MAX_TIME;
-      unlockedBar.style.width = (fraction * 100) + '%';
+      const frac = unlockedDuration / MAX_TIME;
+      unlockedBar.style.width = (frac * 100) + '%';
     }
   
-    // ----- (C) Update Current Playback Bar -----
-    function updateCurrentBar(positionMs) {
-      const positionSec = positionMs / 1000;
-      const fraction = positionSec / MAX_TIME;
-      currentBar.style.width = Math.min(fraction * 100, 100) + '%';
+    // (C) Update current bar (playback)
+    function updateCurrentBar(ms) {
+      const sec = ms / 1000;
+      const frac = sec / MAX_TIME;
+      currentBar.style.width = Math.min(frac * 100, 100) + '%';
     }
   
-    // ----- (D) Add a row to Guess History -----
-    function addHistoryRow(guessText, status) {
-      // Format: "1 - mozart (wrong)" or "2 - malone (correct!)"
-      // or "3 - Skipped (wrong)"
-      const p = document.createElement('p');
-      p.textContent = `${attemptNumber} - ${guessText} (${status})`;
-      guessHistoryEl.appendChild(p);
+    // (D) Fill a specific row in guess history
+    // e.g., fillRow(1, "mozart", "wrong") => "1 - mozart (wrong)"
+    // inside your handleWrongAttempt or fillRow function:
+        function fillRow(attempt, guessText, status) {
+            const rowEl = document.getElementById(`attempt-${attempt}`);
+            if (rowEl) {
+            rowEl.textContent = `${attempt} - ${guessText} (${status})`;
+            }
+        }
   
-      // Increase attempt number for the next time
-      attemptNumber++;
-    }
   
-    // ----- (E) End Game -----
+    // (E) End game
     function endGame() {
       gameOver = true;
       feedback.textContent += ' Game over!';
-      // Hide main controls
       playButton.style.display = 'none';
       skipButton.style.display = 'none';
       guessForm.style.display = 'none';
   
-      // Reveal the SoundCloud iframe
+      // Show SoundCloud iframe
       scIframe.style.display = 'block';
   
-      // Optionally, share button
+      // Optional share button
       const shareBtn = document.createElement('button');
       shareBtn.textContent = 'Share result';
       shareBtn.addEventListener('click', () => {
         const text = `I just played Heardle-like! The answer was "${answer}".`;
         navigator.clipboard.writeText(text)
-          .then(() => alert('Copied to clipboard!'))
-          .catch(() => alert('Failed to copy.'));
+          .then(() => alert('Copied to clipboard!'));
       });
       feedback.appendChild(document.createElement('br'));
       feedback.appendChild(shareBtn);
     }
   
-    // ----- (F) Handle Wrong/Skip Attempt -----
-    function handleWrongAttempt(userGuessOrSkipped) {
-      // userGuessOrSkipped might be "Skipped" or an actual guess string
-      feedback.textContent = "Wrong guess!";  // or "You skipped!" if you prefer
-  
-      // Add to guess history
-      addHistoryRow(userGuessOrSkipped, "wrong");
-  
-      // Next slice
+    // (F) Next slice or end
+    function goToNextSlice() {
       sliceIndex++;
       if (sliceIndex >= TIME_SLICES.length) {
-        // Out of slices => game over
         feedback.textContent = `No more slices! The correct answer was "${answer}".`;
         endGame();
-        return;
+        return false;
       }
       unlockedDuration = TIME_SLICES[sliceIndex];
       updateUnlockedBar();
+      return true;
     }
   
-    // Initialize the unlocked bar
+    // (G) Common function if user guessed incorrectly or skipped
+    function markWrongAttempt(guessText) {
+      // Mark the row with: attemptNumber, guessText, "wrong"
+      fillRow(attemptNumber, guessText, "wrong");
+      attemptNumber++;
+      // If we exceeded max attempts, also end game
+      if (attemptNumber > maxAttempts) {
+        feedback.textContent = `No more attempts! The correct answer was "${answer}".`;
+        endGame();
+        return;
+      }
+      // Move to next slice
+      goToNextSlice();
+    }
+  
+    // Initialize
     updateUnlockedBar();
   
-    // ----- (G) Widget Ready -----
+    // (H) Bind widget events
     widget.bind(SC.Widget.Events.READY, () => {
       console.log("SoundCloud Widget is ready.");
   
-      // Track the playing position to move currentBar
       widget.bind(SC.Widget.Events.PLAY_PROGRESS, (eventData) => {
         const ms = eventData.currentPosition;
         updateCurrentBar(ms);
   
-        // If we reached unlocked limit, pause
         if (ms >= unlockedDuration * 1000) {
           widget.pause();
         }
       });
   
-      // (1) PLAY button
+      // PLAY
       playButton.addEventListener('click', () => {
         if (gameOver) return;
         widget.seekTo(0);
         widget.play();
       });
   
-      // (2) SKIP button
+      // SKIP
       skipButton.addEventListener('click', () => {
         if (gameOver) return;
-        addHistoryRow("Skipped", "wrong"); // Mark attempt
-        // Also increment attemptNumber
-        sliceIndex++;
-        if (sliceIndex >= TIME_SLICES.length) {
-          feedback.textContent = `No more slices! The correct answer was "${answer}".`;
-          endGame();
-          return;
-        }
-        unlockedDuration = TIME_SLICES[sliceIndex];
-        updateUnlockedBar();
         feedback.textContent = "You skipped!";
+        markWrongAttempt("Skipped");
       });
   
-      // (3) GUESS form
+      // GUESS
       guessForm.addEventListener('submit', (e) => {
         e.preventDefault();
         if (gameOver) return;
@@ -173,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
   
-        // We'll do a fetch to server
+        // Check with server
         fetch('/guess', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -182,22 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
           if (data.result === 'correct') {
-            addHistoryRow(userGuess, "correct!");
+            // Fill row with "correct!"
+            fillRow(attemptNumber, userGuess, "correct!");
             feedback.textContent = "Correct! Well done.";
             endGame();
           } else {
-            // Not correct => record a row "userGuess (wrong)"
-            addHistoryRow(userGuess, "wrong");
-            // Next slice
-            sliceIndex++;
-            if (sliceIndex >= TIME_SLICES.length) {
-              feedback.textContent = `No more slices! The correct answer was "${answer}".`;
-              endGame();
-              return;
-            }
-            unlockedDuration = TIME_SLICES[sliceIndex];
-            updateUnlockedBar();
+            // Wrong guess
             feedback.textContent = "Wrong guess!";
+            markWrongAttempt(userGuess);
           }
         })
         .catch(err => {
