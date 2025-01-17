@@ -17,12 +17,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Example SoundCloud tracks (track URL + correct answer).
 SOUNDCLOUD_TRACKS = [
     {
-        "url": "https://api.soundcloud.com/tracks/1660314906",
-        "answer": "harlow"  # For demo only
-    },
-    {
-        "url": "https://api.soundcloud.com/tracks/590222589",
-        "answer": "malone"
+        "url": "https://soundcloud.com/mikasounds/relax-take-it-easy-album-1",
+        "answer": "Relax, Take It Easy - MIKA"
     }
 ]
 

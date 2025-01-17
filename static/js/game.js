@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedback    = document.getElementById('feedback');
     const answer      = document.getElementById('correct-answer').value.trim().toLowerCase();
     const puzzleId    = document.getElementById('puzzle-id').value;  // today's puzzle ID
+    //const searchInput = document.getElementById("song-search");
+    const resultsBox  = document.getElementById("autocomplete-list");
+  
+    let songsData = []; // We'll load the JSON data here.
   
     // Progress bar
     const markersContainer = document.getElementById('markers-container');
@@ -33,6 +37,55 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // SoundCloud widget
     const widget = SC.Widget(scIframe);
+
+
+  // 1) Fetch the JSON data (assuming you place songsWithLinks.json in /static/data)
+    fetch("/static/data/songsWithLinks.json")
+    .then((response) => response.json())
+    .then((data) => {
+        songsData = data; // store in a global var for filtering
+        console.log("Loaded songs data:", songsData);
+    })
+    .catch((error) => console.error("Error loading songs JSON:", error));
+
+
+    // 2) Listen for input changes
+    //searchInput.addEventListener("input", onSearchInput);
+
+    guessInput.addEventListener("input", onSearchInput);
+
+
+  // 3) Define the event handler
+  function onSearchInput() {
+    const query = guessInput.value.toLowerCase().trim();
+    resultsBox.innerHTML = "";
+  
+    // if empty, stop
+    if (!query) return;
+  
+    const filtered = songsData.filter(song => {
+        // if "song.answer" or "song.artist" is missing or not a string, fallback to empty
+        const answerLC = (typeof song.answer === "string")
+          ? song.answer.toLowerCase()
+          : "";
+        const artistLC = (typeof song.artist === "string")
+          ? song.artist.toLowerCase()
+          : "";
+      
+        return answerLC.includes(query) || artistLC.includes(query);
+      });      
+  
+    // display suggestions
+    filtered.slice(0, 6).forEach((song) => {
+      const itemDiv = document.createElement("div");
+      itemDiv.textContent = song.answer;
+      itemDiv.addEventListener("click", () => {
+        guessInput.value = song.answer; // fill the form field
+        resultsBox.innerHTML = "";
+      });
+      resultsBox.appendChild(itemDiv);
+    });
+  }  
   
     // 1) Create markers
     function createMarkers() {
@@ -93,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function goToNextSlice() {
       sliceIndex++;
       if (sliceIndex >= TIME_SLICES.length) {
-        feedback.textContent = `No more slices! The correct answer was "${answer}".`;
+        feedback.textContent = `No more tries!`;
         endGame();
         return false;
       }
@@ -111,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       attemptNumber++;
       if (attemptNumber > maxAttempts) {
-        feedback.textContent = `No more attempts! The correct answer was "${answer}".`;
+        feedback.textContent = `No more attempts! `;
         endGame();
       } else {
         // Move to next slice
@@ -162,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         // If the game was already over, reflect that in the UI
         if (gameOver) {
-          feedback.textContent = 'You already finished this puzzle. The answer was "' + answer + '".';
+          feedback.textContent = 'You already finished this puzzle.';
           endGame();
         } else {
           // If the game is not over, ensure the bars reflect the loaded slice

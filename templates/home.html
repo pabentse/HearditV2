@@ -7,7 +7,7 @@
 <body>
   <div class="game-container">
 
-    <h1>Heardit (kul versjon)</h1>
+    <h1>Heardit</h1>
 
 
     <!-- (A) Fixed rows for guess history (6 attempts, for example) -->
@@ -29,13 +29,18 @@
 
     <!-- Guess Form -->
     <form id="guess-form" class="guess-form">
-      <input type="text" id="guess-input" placeholder="Your guess..." autocomplete="off">
-      <div class="action-buttons">
+        <!-- The guess input is 60% wide -->
+        <input type="text" id="guess-input" placeholder="Your guess..." autocomplete="off">
+    
+        <!-- The autocomplete container right below, which we'll style to match -->
+        <div id="autocomplete-list" class="autocomplete-items"></div>
+    
+        <div class="action-buttons">
         <button type="button" id="skip-button" class="skip-btn">Skip</button>
         <button type="submit" class="guess-btn">Guess</button>
-      </div>
+        </div>
     </form>
-
+  
     <!-- Progress Bar -->
     <div id="progress-wrapper">
       <div id="progress-container">
