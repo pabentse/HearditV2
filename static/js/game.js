@@ -242,12 +242,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const stars = '⭐️'.repeat(score);
   
           // Example: "6/6\n⭐️⭐️⭐️⭐️⭐️⭐️\n🔊 https://heardit.eu 🔊"
-          const shareText = `${score}/6\n${stars}\n🔊 https://heardit.eu 🔊`;
+          const shareText = `${score}/6\n${stars}\n🔊 https://www.heardit.eu 🔊`;
           copyToClipboard(shareText);
   
         } else {
           // If user failed all attempts => "0/6\n🥲\n🔊 https://heardit.eu 🔊"
-          const shareText = `0/6\n🥲\n🔊 https://heardit.eu 🔊`;
+          const shareText = `0/6\n🥲\n🔊 https://www.heardit.eu 🔊`;
           copyToClipboard(shareText);
         }
       });
