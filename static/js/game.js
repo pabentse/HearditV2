@@ -222,22 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   
-    /* -------------------------------------------------------------------------------- */
-    /* SHARE BUTTON LOGIC */
-    /* -------------------------------------------------------------------------------- */
-    function createShareButton() {
-      const shareBtn = document.createElement('button');
-      shareBtn.textContent = 'Share result';
-  
-      shareBtn.addEventListener('click', () => {
-        const blocks = buildBlockString();
-        const shareText = `${blocks}\n🔊 https://www.heardit.eu 🔊`;
-        copyToClipboard(shareText);
-      });
-  
-      feedback.appendChild(document.createElement('br'));
-      feedback.appendChild(shareBtn);
-    }
   
     function buildBlockString() {
       // Build a 6-character string for the 6 attempts
@@ -259,12 +243,54 @@ document.addEventListener('DOMContentLoaded', () => {
       return blockArray.join("");
     }
   
-    // Helper for copying
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text)
-        .then(() => alert('Copied to clipboard!'))
-        .catch(err => console.error('Failed to copy text: ', err));
+    // Helper function to show toast
+    function showToast(message) {
+    const toast = document.getElementById('toast');
+    if (toast) {
+      toast.textContent = message;
+      toast.className = 'toast show';
+      // Hide the toast after 2 seconds
+      setTimeout(() => {
+        toast.className = toast.className.replace('show', '');
+      }, 2000);
+    } else {
+      console.warn('Toast element not found');
     }
+    }
+  
+  // Updated copyToClipboard function using toast
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        showToast('Copied to clipboard!');
+      })
+      .catch(err => {
+        console.error('Failed to copy text: ', err);
+        showToast('Failed to copy');
+      });
+  }
+  
+  /* -------------------------------------------------------------------------------- */
+  function createShareButton() {
+    const shareBtn = document.createElement('button');
+    shareBtn.textContent = 'Share Result';
+    shareBtn.classList.add('share-button'); // Add a class for styling if needed
+  
+    shareBtn.addEventListener('click', () => {
+      const blocks = buildBlockString();
+      const shareText = `${blocks}\n🔊 https://www.heardit.eu 🔊`;
+      copyToClipboard(shareText);
+    });
+  
+    // Assuming 'feedback' is a DOM element where you want to place the button
+    const feedback = document.getElementById('feedback'); // Ensure this ID exists in your HTML
+    if (feedback) {
+      feedback.appendChild(document.createElement('br'));
+      feedback.appendChild(shareBtn);
+    } else {
+      console.warn('Feedback element not found');
+    }
+  }
   
     /* -------------------------------------------------------------------------------- */
     /* INIT LOGIC */
