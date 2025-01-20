@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedback    = document.getElementById('feedback');
     const answer      = document.getElementById('correct-answer').value.trim().toLowerCase();
     const puzzleId    = document.getElementById('puzzle-id').value;  // today's puzzle ID
-    //const searchInput = document.getElementById("song-search");
     const resultsBox  = document.getElementById("autocomplete-list");
   
     let songsData = []; // We'll load the JSON data here.
@@ -22,70 +21,55 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Time slices
     const TIME_SLICES = [2, 3, 5, 9, 13];
-    let sliceIndex = 0;             // Which slice are we currently on?
-    let unlockedDuration = 2;       // TIME_SLICES[0]
+    let sliceIndex = 0;
+    let unlockedDuration = 2;  // TIME_SLICES[0]
     let gameOver = false;
-    let gameWon  = false;           // <-- NEW: track if puzzle was solved
+    let gameWon  = false;      // track if puzzle was solved
     
     // We'll allow a max of 6 attempts
     let attemptNumber = 1;
     const maxAttempts = 6;
   
-    // This will hold all guess history for display
+    // Guess history
     // Example: [{ attempt:1, guess:"hello", status:"wrong" }, ...]
     let guessHistory = [];
   
     // SoundCloud widget
     const widget = SC.Widget(scIframe);
 
-
-  // 1) Fetch the JSON data (assuming you place songsWithLinks.json in /static/data)
+    // Fetch the JSON data
     fetch("/static/data/songsWithLinks.json")
-    .then((response) => response.json())
-    .then((data) => {
-        songsData = data; // store in a global var for filtering
+      .then((response) => response.json())
+      .then((data) => {
+        songsData = data; // store globally for filtering
         console.log("Loaded songs data:", songsData);
-    })
-    .catch((error) => console.error("Error loading songs JSON:", error));
+      })
+      .catch((error) => console.error("Error loading songs JSON:", error));
 
-
-    // 2) Listen for input changes
-    //searchInput.addEventListener("input", onSearchInput);
-
+    // Autocomplete logic
     guessInput.addEventListener("input", onSearchInput);
 
-
-  // 3) Define the event handler
-  function onSearchInput() {
-    const query = guessInput.value.toLowerCase().trim();
-    resultsBox.innerHTML = "";
+    function onSearchInput() {
+      const query = guessInput.value.toLowerCase().trim();
+      resultsBox.innerHTML = "";
+      if (!query) return;
   
-    // if empty, stop
-    if (!query) return;
-  
-    const filtered = songsData.filter(song => {
-        // if "song.answer" or "song.artist" is missing or not a string, fallback to empty
-        const answerLC = (typeof song.answer === "string")
-          ? song.answer.toLowerCase()
-          : "";
-        const artistLC = (typeof song.artist === "string")
-          ? song.artist.toLowerCase()
-          : "";
-      
-        return answerLC.includes(query) || artistLC.includes(query);
-      });      
-  
-    // display suggestions
-    filtered.slice(0, 6).forEach((song) => {
-      const itemDiv = document.createElement("div");
-      itemDiv.textContent = song.answer;
-      itemDiv.addEventListener("click", () => {
-        guessInput.value = song.answer; // fill the form field
-        resultsBox.innerHTML = "";
+      const filtered = songsData.filter(song => {
+        const ans = (typeof song.answer === "string") ? song.answer.toLowerCase() : "";
+        const art = (typeof song.artist === "string") ? song.artist.toLowerCase() : "";
+        return ans.includes(query) || art.includes(query);
       });
-      resultsBox.appendChild(itemDiv);
-    });
-  }  
+  
+      filtered.slice(0, 6).forEach((song) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.textContent = song.answer;
+        itemDiv.addEventListener("click", () => {
+          guessInput.value = song.answer; // fill the form field
+          resultsBox.innerHTML = "";
+        });
+        resultsBox.appendChild(itemDiv);
+      });
+    }
   
     // 1) Create markers
     function createMarkers() {
@@ -116,12 +100,28 @@ document.addEventListener('DOMContentLoaded', () => {
       currentBar.style.width = Math.min(frac * 100, 100) + '%';
     }
   
-    // 4) Fill a specific row in guess history
+    // 4) Fill a specific row in guess history with nicer format
     function fillRow(attempt, guessText, status) {
       const rowEl = document.getElementById(`attempt-${attempt}`);
-      if (rowEl) {
-        rowEl.textContent = `${attempt} - ${guessText} (${status})`;
+      if (!rowEl) return;
+      
+      // Determine the icon (prefix)
+      let prefix = "🟥"; // default for wrong
+      if (status === "correct!") prefix = "🟩";
+      if (guessText.toLowerCase() === "skipped") prefix = "⬛";
+  
+      // If not skipped, find the matching song to show "Title - Artist"
+      if (guessText.toLowerCase() !== "skipped") {
+        const match = songsData.find(s => 
+          s.answer && s.answer.toLowerCase() === guessText.toLowerCase()
+        );
+        if (match) {
+          rowEl.textContent = `${prefix} ${match.answer} `;
+          return;
+        }
       }
+      // Otherwise just show the skip or fallback
+      rowEl.textContent = `${prefix} ${guessText}`;
     }
   
     // 5) End game
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Create share button
       createShareButton();
   
-      // After the game is over, save state so if user comes back, we don't re-start
+      // Save final state
       saveGameState();
     }
   
@@ -155,23 +155,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return true;
     }
   
-    // 7) Common function if user guessed incorrectly or skipped
+    // 7) Mark a wrong attempt
     function markWrongAttempt(guessText) {
-      // Mark the row visually
       fillRow(attemptNumber, guessText, "wrong");
-      // Also store in our guessHistory array
       guessHistory.push({ attempt: attemptNumber, guess: guessText, status: "wrong" });
-  
       attemptNumber++;
+  
       if (attemptNumber > maxAttempts) {
         feedback.textContent = `No more attempts! `;
         endGame();
       } else {
-        // Move to next slice
         goToNextSlice();
       }
-  
-      // Save current state after each wrong attempt
       saveGameState();
     }
   
@@ -188,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sliceIndex,
         unlockedDuration,
         gameOver,
-        gameWon,        // <--- Store gameWon too
+        gameWon,
         attemptNumber,
         guessHistory
       };
@@ -197,8 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     function loadGameState() {
       const saved = localStorage.getItem(getStorageKey());
-      if (!saved) return; // no data
-  
+      if (!saved) return;
       try {
         const data = JSON.parse(saved);
         sliceIndex       = data.sliceIndex;
@@ -208,17 +202,15 @@ document.addEventListener('DOMContentLoaded', () => {
         attemptNumber    = data.attemptNumber;
         guessHistory     = data.guessHistory || [];
   
-        // Now restore the UI from guessHistory
+        // Restore from guessHistory
         guessHistory.forEach(item => {
           fillRow(item.attempt, item.guess, item.status);
         });
   
-        // If the game was already over, reflect that in the UI
         if (gameOver) {
           feedback.textContent = 'You already finished this puzzle.';
           endGame();
         } else {
-          // If the game is not over, ensure the bars reflect the loaded slice
           updateUnlockedBar();
         }
       } catch (err) {
@@ -234,27 +226,33 @@ document.addEventListener('DOMContentLoaded', () => {
       shareBtn.textContent = 'Share result';
   
       shareBtn.addEventListener('click', () => {
-        // If game was won, compute how many "stars" remain
-        if (gameWon) {
-          // e.g. if user guessed on attempt #1 => score = 6
-          // attempt #6 => score = 1
-          const score = maxAttempts + 1 - attemptNumber;
-          const stars = '⭐️'.repeat(score);
-  
-          // Example: "6/6\n⭐️⭐️⭐️⭐️⭐️⭐️\n🔊 https://heardit.eu 🔊"
-          const shareText = `${score}/6\n${stars}\n🔊 https://www.heardit.eu 🔊`;
-          copyToClipboard(shareText);
-  
-        } else {
-          // If user failed all attempts => "0/6\n🥲\n🔊 https://heardit.eu 🔊"
-          const shareText = `0/6\n🥲\n🔊 https://www.heardit.eu 🔊`;
-          copyToClipboard(shareText);
-        }
+        const blocks = buildBlockString();
+        const shareText = `${blocks}\n🔊 https://www.heardit.eu 🔊`;
+        copyToClipboard(shareText);
       });
   
-      // Add share button to the feedback area
       feedback.appendChild(document.createElement('br'));
       feedback.appendChild(shareBtn);
+    }
+  
+    function buildBlockString() {
+      // Build a 6-character string for the 6 attempts
+      let blockArray = [];
+      for (let i = 1; i <= maxAttempts; i++) {
+        const attemptInfo = guessHistory.find(g => g.attempt === i);
+        if (!attemptInfo) {
+          blockArray.push("⬜"); // unused
+        } else {
+          if (attemptInfo.guess.toLowerCase() === "skipped") {
+            blockArray.push("⬛");
+          } else if (attemptInfo.status === "correct!") {
+            blockArray.push("🟩");
+          } else {
+            blockArray.push("🟥");
+          }
+        }
+      }
+      return blockArray.join("");
     }
   
     // Helper for copying
@@ -279,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     widget.bind(SC.Widget.Events.READY, () => {
       console.log("SoundCloud Widget is ready.");
   
-      // Pause playback if we hit the unlocked duration
+      // Pause if we exceed the unlocked duration
       widget.bind(SC.Widget.Events.PLAY_PROGRESS, (eventData) => {
         const ms = eventData.currentPosition;
         updateCurrentBar(ms);
@@ -299,7 +297,17 @@ document.addEventListener('DOMContentLoaded', () => {
       skipButton.addEventListener('click', () => {
         if (gameOver) return;
         feedback.textContent = "You skipped!";
-        markWrongAttempt("Skipped");
+        fillRow(attemptNumber, "Skipped", "wrong");
+        guessHistory.push({ attempt: attemptNumber, guess: "Skipped", status: "wrong" });
+        attemptNumber++;
+  
+        if (attemptNumber > maxAttempts) {
+          feedback.textContent = `No more attempts! `;
+          endGame();
+        } else {
+          goToNextSlice();
+        }
+        saveGameState();
       });
   
       // GUESS
@@ -313,6 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
   
+        // Make sure the guess is in the songs list
+        const validGuess = songsData.some(song => 
+          (typeof song.answer === "string") && song.answer.toLowerCase() === userGuess
+        );
+        if (!validGuess) {
+          feedback.textContent = "Please choose a valid song from the list.";
+          return;
+        }
+  
         // Check with server
         fetch('/guess', {
           method: 'POST',
@@ -322,15 +339,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
           if (data.result === 'correct') {
-            // Mark game as won
             gameWon = true;
-            // Fill row
             fillRow(attemptNumber, userGuess, "correct!");
             guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "correct!" });
             feedback.textContent = "Correct! Well done.";
             endGame();
           } else {
-            // Wrong guess
             feedback.textContent = "Wrong guess!";
             markWrongAttempt(userGuess);
           }
@@ -344,5 +358,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-  });
-  
+});
