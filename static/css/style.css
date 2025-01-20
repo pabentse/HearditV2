@@ -127,7 +127,7 @@ body {
   .slice-marker {
     position: absolute;
     top: 0;
-    width: 2px;
+    width: 3px;
     height: 100%;
     background: rgba(255,255,255,0.7);
   }
@@ -175,7 +175,7 @@ body {
   /* The guess input was given width: 60%; 
      so let's match that for the autocomplete. */
   #guess-input {
-    width: 60%;
+    width: 80%;
     padding: 8px;
     margin-bottom: 0; /* We'll control spacing via autocomplete container */
     font-size: 1rem;
@@ -232,7 +232,8 @@ body {
   
   .action-buttons {
     display: flex;
-    width: 60%; /* match input width if you like */
+    width: 80%; /* match input width if you like */
+    margin-top: 4px;
     justify-content: space-between; /* skip on left, guess on right */
   }
   
@@ -293,3 +294,28 @@ body {
     background-color: #e9e9e9;
   }
   
+  /* Example spinner (loading) */
+.play-button.loading {
+  cursor: wait;
+  /* Example: show a spinner icon or an inline base64 spinner; up to you. */
+  background: url('static/images/loading-gif.gif') center center no-repeat;
+  /* Possibly no text if the spinner is purely visual */
+  color: transparent;
+  border: none;
+}
+
+/* Example normal play state */
+.play-button.ready {
+  cursor: pointer;
+  /* Show a play icon. Could be a background image or Unicode char, etc. */
+  background: url('static/images/loading-gif.gif') center center no-repeat;
+}
+
+/* Example dancing bars while playing */
+.play-button.playing {
+  cursor: pointer;
+  /* Show an animated “equalizer” or “bars.” 
+     This could be a GIF or a CSS animation. Example: 
+     background: url('/path/to/dancing-bars.gif') center center no-repeat; */
+  background: url('static/images/loading-gif.gif') center center no-repeat;
+}

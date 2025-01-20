@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsBox  = document.getElementById("autocomplete-list");
   
     let songsData = []; // We'll load the JSON data here.
+
+    // 1) Set the play button to a loading state initially.
+    playButton.classList.add("loading");
+    playButton.disabled = true;
   
     // Progress bar
     const markersContainer = document.getElementById('markers-container');
@@ -274,21 +278,49 @@ document.addEventListener('DOMContentLoaded', () => {
     /* SOUND CLOUD BINDINGS & EVENT HANDLERS */
     /* -------------------------------------------------------------------------------- */
   
+
+    // 2) When widget is ready, remove the loading state
     widget.bind(SC.Widget.Events.READY, () => {
-      console.log("SoundCloud Widget is ready.");
+        console.log("SoundCloud Widget is ready.");
   
-      // Pause if we exceed the unlocked duration
-      widget.bind(SC.Widget.Events.PLAY_PROGRESS, (eventData) => {
-        const ms = eventData.currentPosition;
-        updateCurrentBar(ms);
-        if (ms >= unlockedDuration * 1000) {
-          widget.pause();
-        }
+        // The widget is ready, so we remove the spinner and enable the button
+        playButton.classList.remove("loading");
+        playButton.classList.add("ready");
+        playButton.disabled = false;
+  
+        // 3) Bind events to switch between playing and paused/finished states
+        widget.bind(SC.Widget.Events.PLAY, () => {
+          // Switch to dancing bars or playing animation
+          playButton.classList.remove("ready");
+          playButton.classList.add("playing");
+        });
+  
+        widget.bind(SC.Widget.Events.PAUSE, () => {
+          // Return to normal play icon
+          playButton.classList.remove("playing");
+          playButton.classList.add("ready");
+        });
+  
+        widget.bind(SC.Widget.Events.FINISH, () => {
+          // Also show normal play icon again
+          playButton.classList.remove("playing");
+          playButton.classList.add("ready");
+        });
+  
+        // 4) Also track play progress as you did before
+        widget.bind(SC.Widget.Events.PLAY_PROGRESS, (eventData) => {
+          const ms = eventData.currentPosition;
+          updateCurrentBar(ms);
+          if (ms >= unlockedDuration * 1000) {
+            widget.pause();
+          }
+        });
       });
   
-      // PLAY
+      // PLAY button on-click
       playButton.addEventListener('click', () => {
         if (gameOver) return;
+        // Seek to start & play
         widget.seekTo(0);
         widget.play();
       });
@@ -357,5 +389,4 @@ document.addEventListener('DOMContentLoaded', () => {
           guessInput.value = '';
         });
       });
-    });
 });
