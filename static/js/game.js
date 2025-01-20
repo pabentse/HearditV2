@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // We'll allow a max of 6 attempts
     let attemptNumber = 1;
-    const maxAttempts = 6;
+    const maxAttempts = 5;
   
     // Guess history
     // Example: [{ attempt:1, guess:"hello", status:"wrong" }, ...]
