@@ -49,6 +49,7 @@ def pick_daily_track():
     # If no track is assigned to today, select a random track without a specific date
     random_tracks = [track for track in SOUNDCLOUD_TRACKS if "date" not in track]
     if random_tracks:
+        print("used random")
         return random.choice(random_tracks)
     else:
         # Fallback in case there are no random tracks
