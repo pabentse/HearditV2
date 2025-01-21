@@ -28,6 +28,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-01-21",
         "url": "https://soundcloud.com/eminemofficial/lose-yourself",
         "answer": "Lose Yourself - Eminem"
+    },
+    {
+        "date": "2025-01-22",
+        "url": "https://soundcloud.com/red-hot-chili-peppers-official/snow-hey-oh",
+        "answer": "Snow (Hey Oh) - Red Hot Chili Peppers"
     }
 ]
 
