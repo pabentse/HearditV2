@@ -28,7 +28,7 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-01-21",
         "url": "https://soundcloud.com/eminemofficial/lose-yourself",
         "answer": "Lose Yourself - Eminem"
-    },
+    }
 ]
 
 def get_base_context(request: Request):
