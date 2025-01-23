@@ -38,6 +38,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-01-23",
         "url": "https://soundcloud.com/arethafranklin/aretha-franklin-you-make-me",
         "answer": "(You Make Me Feel Like) A Natural Woman - Aretha Franklin"
+    },
+    {
+        "date": "2025-01-24",
+        "url": "https://soundcloud.com/spice-girls-official/say-youll-be-there-single-mix",
+        "answer": "Say You'll Be There - Spice Girls"
     }
 ]
 
