@@ -43,6 +43,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-01-24",
         "url": "https://soundcloud.com/spice-girls-official/say-youll-be-there-single-mix",
         "answer": "Say You'll Be There - Spice Girls"
+    },
+    {
+        "date": "2025-01-25",
+        "url": "https://soundcloud.com/maggierogers/alaska",
+        "answer": "Alaska - Maggie Rogers"
     }
 ]
 
