@@ -48,6 +48,16 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-01-25",
         "url": "https://soundcloud.com/maggierogers/alaska",
         "answer": "Alaska - Maggie Rogers"
+    },
+    {
+        "date": "2025-01-26",
+        "url": "https://soundcloud.com/ofwgkta-official/frank-ocean-biking",
+        "answer": "Biking - Frank Ocean",
+    },
+    {
+        "date": "2025-01-27",
+        "url": "https://soundcloud.com/mozart/requiem-in-d-minor-k-626-1",
+        "answer": "Requiem in D minor, K. 626 Lacrimosa - Wolfgang Amadeus Mozart"
     }
 ]
 

@@ -2493,5 +2493,15 @@
         "url": "https://soundcloud.com/maggierogers/alaska",
         "answer": "Alaska - Maggie Rogers",
         "artist": "Maggie Rogers"
+    },
+    {
+        "url": "https://soundcloud.com/ofwgkta-official/frank-ocean-biking",
+        "answer": "Biking - Frank Ocean",
+        "artist": "Frank Ocean"
+    },
+    {
+        "url": "https://soundcloud.com/mozart/requiem-in-d-minor-k-626-1",
+        "answer": "Requiem in D minor, K. 626 Lacrimosa - Wolfgang Amadeus Mozart",
+        "artist": "Wolfgang Amadeus Mozart"
     }
 ]
