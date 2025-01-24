@@ -2500,8 +2500,13 @@
         "artist": "Frank Ocean"
     },
     {
-        "url": "https://soundcloud.com/mozart/requiem-in-d-minor-k-626-1",
-        "answer": "Requiem in D minor, K. 626 Lacrimosa - Wolfgang Amadeus Mozart",
-        "artist": "Wolfgang Amadeus Mozart"
+        "url": "https://soundcloud.com/lordemusic/perfect-places",
+        "answer": "Perfect Places - Lorde",
+        "artist": "Lorde"
+    },
+    {
+        "url": "https://soundcloud.com/jonimitchell/a-case-of-you",
+        "answer": "A Case of You - Joni Mitchell",
+        "artist": "Joni Mitchell"
     }
 ]

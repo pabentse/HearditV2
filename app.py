@@ -49,15 +49,20 @@ SOUNDCLOUD_TRACKS = [
         "url": "https://soundcloud.com/maggierogers/alaska",
         "answer": "Alaska - Maggie Rogers"
     },
-    {
+        {
         "date": "2025-01-26",
+        "url": "https://soundcloud.com/jonimitchell/a-case-of-you",
+        "answer": "A Case of You - Joni Mitchell",
+    },
+    {
+        "date": "2025-01-28",
         "url": "https://soundcloud.com/ofwgkta-official/frank-ocean-biking",
         "answer": "Biking - Frank Ocean",
     },
     {
         "date": "2025-01-27",
-        "url": "https://soundcloud.com/mozart/requiem-in-d-minor-k-626-1",
-        "answer": "Requiem in D minor, K. 626 Lacrimosa - Wolfgang Amadeus Mozart"
+        "url": "https://soundcloud.com/lordemusic/perfect-places",
+        "answer": "Perfect Places - Lorde",
     }
 ]
 
