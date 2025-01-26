@@ -2508,5 +2508,14 @@
         "url": "https://soundcloud.com/jonimitchell/a-case-of-you",
         "answer": "A Case of You - Joni Mitchell",
         "artist": "Joni Mitchell"
+    },
+    {
+        "url": "https://soundcloud.com/lana-del-rey/west-coast-1",
+        "answer": "West Coast - Lana Del Rey",
+        "artist": "Lana Del Rey"
+    },
+    {
+        "url": "https://soundcloud.com/creedence-clearwater-revival/have-you-ever-seen-the-rain-2",
+        "answer": "Have You Ever Seen the Rain? - Creedence Clearwater Revival"
     }
 ]

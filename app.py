@@ -63,7 +63,17 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-01-27",
         "url": "https://soundcloud.com/lordemusic/perfect-places",
         "answer": "Perfect Places - Lorde",
-    }
+    },
+    {
+        "date": "2025-01-29",
+        "url": "https://soundcloud.com/lana-del-rey/west-coast-1",
+        "answer": "West Coast - Lana Del Rey",
+    },
+    {
+        "date": "2025-01-30",
+        "url": "https://soundcloud.com/creedence-clearwater-revival/have-you-ever-seen-the-rain-2",
+        "answer": "Have You Ever Seen the Rain? - Creedence Clearwater Revival",
+    },
 ]
 
 def get_base_context(request: Request):
