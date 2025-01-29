@@ -70,9 +70,14 @@ SOUNDCLOUD_TRACKS = [
         "answer": "West Coast - Lana Del Rey",
     },
     {
-        "date": "2025-01-30",
+        "date": "2025-01-31",
         "url": "https://soundcloud.com/creedence-clearwater-revival/have-you-ever-seen-the-rain-2",
         "answer": "Have You Ever Seen the Rain? - Creedence Clearwater Revival",
+    },
+    {
+        "date": "2025-01-30",
+        "url": "https://soundcloud.com/billieeilish/when-the-partys-over",
+        "answer": "When the Party's Over - Billie Eilish",
     },
 ]
 
