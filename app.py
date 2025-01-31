@@ -88,6 +88,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-02",
         "url": "https://soundcloud.com/al-green-official/tired-of-being-alone-3",
         "answer": "Tired of Being Alone - Al Green",
+    },
+    {
+        "date": "2025-02-03",
+        "url": "https://soundcloud.com/dualipa/houdini",
+        "answer": "Houdini - Dua Lipa",
     }
 ]
 
