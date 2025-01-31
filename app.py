@@ -79,6 +79,16 @@ SOUNDCLOUD_TRACKS = [
         "url": "https://soundcloud.com/billieeilish/when-the-partys-over",
         "answer": "When the Party's Over - Billie Eilish",
     },
+    {
+        "date": "2025-02-01",
+        "url": "https://soundcloud.com/beyonce/beyonce-texas-hold-em",
+        "answer": "Texas Hold 'Em - Beyoncé",
+    },
+    {
+        "date": "2025-02-02",
+        "url": "https://soundcloud.com/al-green-official/tired-of-being-alone-3",
+        "answer": "Tired of Being Alone - Al Green",
+    }
 ]
 
 def get_base_context(request: Request):
