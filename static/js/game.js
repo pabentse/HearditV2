@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentBar       = document.getElementById('current-bar');
   
     // Time slices
-    const TIME_SLICES = [2, 3, 5, 9, 13];
+    const TIME_SLICES = [2, 3, 5, 11, 20];
     let sliceIndex = 0;
     let unlockedDuration = 2;  // TIME_SLICES[0]
     let gameOver = false;
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Hide the toast after 2 seconds
       setTimeout(() => {
         toast.className = toast.className.replace('show', '');
-      }, 2000);
+      }, 3000);
     } else {
       console.warn('Toast element not found');
     }
