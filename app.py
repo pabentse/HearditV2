@@ -93,6 +93,21 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-03",
         "url": "https://soundcloud.com/dualipa/houdini",
         "answer": "Houdini - Dua Lipa",
+    },
+    {
+        "date": "2025-02-05",
+        "url": "https://soundcloud.com/marvin-gaye/whats-going-on-1",
+        "answer": "What's Going On - Marvin Gaye",
+    },
+    {
+        "date": "2025-02-06",
+        "url": "https://soundcloud.com/prince/purple-rain?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+        "answer": "Purple Rain - Prince"
+    },
+    {
+        "date": "2025-02-07",
+        "url": "https://soundcloud.com/kendrick-lamar-music/not-like-us",
+        "answer": "Not Like Us - Kendrick Lamar",
     }
 ]
 
