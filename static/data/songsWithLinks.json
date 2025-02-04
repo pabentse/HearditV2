@@ -2539,11 +2539,19 @@
         "answer": "What's Going On - Marvin Gaye"
     },
     {
-        "url": "https://soundcloud.com/prince/purple-rain?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+        "url": "https://soundcloud.com/prince/purple-rain",
         "answer": "Purple Rain - Prince"
     },
     {
         "url": "https://soundcloud.com/kendrick-lamar-music/not-like-us",
         "answer": "Not Like Us - Kendrick Lamar"
+    },
+    {
+        "url": "https://soundcloud.com/theweeknd/blinding-lights",
+        "answer": "Blinding Lights - The Weeknd"
+    },
+    {
+        "url": "https://soundcloud.com/village-people/ymca",
+        "answer": "YMCA - Village People"
     }
 ]

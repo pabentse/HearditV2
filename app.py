@@ -101,13 +101,23 @@ SOUNDCLOUD_TRACKS = [
     },
     {
         "date": "2025-02-06",
-        "url": "https://soundcloud.com/prince/purple-rain?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
+        "url": "https://soundcloud.com/prince/purple-rain",
         "answer": "Purple Rain - Prince"
     },
     {
         "date": "2025-02-07",
         "url": "https://soundcloud.com/kendrick-lamar-music/not-like-us",
         "answer": "Not Like Us - Kendrick Lamar",
+    },
+    {
+        "date": "2025-02-08",
+        "url": "https://soundcloud.com/theweeknd/blinding-lights",
+        "answer": "Blinding Lights - The Weeknd",
+    },
+    {
+        "date": "2025-02-09",
+        "url": "https://soundcloud.com/village-people/ymca",
+        "answer": "YMCA - Village People",
     }
 ]
 
