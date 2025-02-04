@@ -118,6 +118,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-09",
         "url": "https://soundcloud.com/village-people/ymca",
         "answer": "YMCA - Village People",
+    },
+    {
+        "date": "2025-02-10",
+        "url": "https://soundcloud.com/jerry-lee-lewis-official/great-balls-of-fire-46",
+        "answer": "Great Balls of Fire - Jerry Lee Lewis"
     }
 ]
 
