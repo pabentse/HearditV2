@@ -123,6 +123,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-10",
         "url": "https://soundcloud.com/jerry-lee-lewis-official/great-balls-of-fire-46",
         "answer": "Great Balls of Fire - Jerry Lee Lewis"
+    },
+    {
+        "date": "2025-02-11",
+        "url": "https://soundcloud.com/oliviarodrigo/good-4-u-1",
+        "answer": "good 4 u - Olivia Rodrigo"
     }
 ]
 
