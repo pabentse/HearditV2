@@ -134,41 +134,16 @@ document.addEventListener('DOMContentLoaded', () => {
       playButton.style.display = 'none';
       skipButton.style.display = 'none';
       guessForm.style.display = 'none';
-      
-      // Hide the SoundCloud player iframe
-      scIframe.style.display = 'none';
-      
-      // Create (or reuse) a container for the SoundCloud card
-      let cardContainer = document.getElementById('sc-card-container');
-      if (!cardContainer) {
-        cardContainer = document.createElement('div');
-        cardContainer.id = 'sc-card-container';
-        // Insert the card container where you want it—here, before the iframe
-        scIframe.parentNode.insertBefore(cardContainer, scIframe);
-      }
-      
-      // Get the track URL from the hidden input
-      const trackUrl = document.getElementById('correct-track').value;
-      
-      // Use SoundCloud's oEmbed API to get a visual card instead of the full player
-      fetch(`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(trackUrl)}&visual=true`)
-        .then(response => response.json())
-        .then(data => {
-          cardContainer.innerHTML = data.html;
-          // Optionally append the correct answer text below the card
-          const answerText = document.getElementById('correct-answer').value;
-          const answerEl = document.createElement('p');
-          answerEl.textContent = `Correct Answer: ${answerText}`;
-          cardContainer.appendChild(answerEl);
-        })
-        .catch(error => {
-          console.error('Error fetching SoundCloud card:', error);
-          cardContainer.innerHTML = `<a href="${trackUrl}" target="_blank">View song on SoundCloud</a>`;
-        });
-      
+  
+      // Show SoundCloud iframe
+      scIframe.style.display = 'block';
+  
+      // Create share button
       createShareButton();
+  
+      // Save final state
       saveGameState();
-    }    
+    }
   
     // 6) Move to next slice or end
     function goToNextSlice() {
