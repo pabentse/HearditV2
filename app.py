@@ -194,13 +194,18 @@ async def guess(request: Request):
     if user_guess == correct_answer:
         return JSONResponse({"result": "correct"})
 
-    # If not an exact match, check if the guess matches the artist.
-    # We assume the correct_answer is formatted as "Song Title - Artist"
+    # Extract artist from the correct answer (assumes "Song Title - Artist" format)
     if "-" in correct_answer:
-        artist = correct_answer.split("-")[-1].strip()
-        if user_guess == artist:
+        correct_artist = correct_answer.split("-")[-1].strip()
+        # If user guess contains a hyphen, extract its artist portion
+        if "-" in user_guess:
+            guessed_artist = user_guess.split("-")[-1].strip()
+        else:
+            guessed_artist = user_guess
+        if guessed_artist == correct_artist:
             return JSONResponse({"result": "artist"})
-    
+
     return JSONResponse({"result": "incorrect"})
+
 
 serve()
