@@ -405,11 +405,17 @@ document.addEventListener('DOMContentLoaded', () => {
             fillRow(attemptNumber, userGuess, "artist");
             guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "artist" });
             feedback.textContent = "Right artist, but wrong song!";
-            markWrongAttempt(userGuess);
-          } else {
-            feedback.textContent = "Wrong guess!";
-            markWrongAttempt(userGuess);
+            // Instead of markWrongAttempt, simply advance the attempt:
+            attemptNumber++;
+            if (attemptNumber > maxAttempts) {
+              feedback.textContent = "No more attempts!";
+              endGame();
+            } else {
+              goToNextSlice();
+            }
+            saveGameState();
           }
+          
         })
         .catch(err => {
           console.error(err);
