@@ -368,16 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       // GUESS
+      // GUESS
       guessForm.addEventListener('submit', (e) => {
         e.preventDefault();
         if (gameOver) return;
-    
+
         const userGuess = guessInput.value.trim().toLowerCase();
         if (!userGuess) {
           feedback.textContent = "Please enter a guess.";
           return;
         }
-    
+
         // Ensure the guess is valid (exists in songsData)
         const validGuess = songsData.some(song =>
           (typeof song.answer === "string") && song.answer.toLowerCase() === userGuess
@@ -386,43 +387,47 @@ document.addEventListener('DOMContentLoaded', () => {
           feedback.textContent = "Please choose a valid song from the list.";
           return;
         }
-    
+
         fetch('/guess', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ guess: userGuess, answer: answer }),
         })
-        .then(res => res.json())
-        .then(data => {
-          if (data.result === 'correct') {
-            gameWon = true;
-            fillRow(attemptNumber, userGuess, "correct!");
-            guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "correct!" });
-            feedback.textContent = "Correct! Well done.";
-            endGame();
-          } else if (data.result === 'artist') {
-            // Artist is correct, but not the song
-            fillRow(attemptNumber, userGuess, "artist");
-            guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "artist" });
-            feedback.textContent = "Right artist, but wrong song!";
-            // Instead of markWrongAttempt, simply advance the attempt:
-            attemptNumber++;
-            if (attemptNumber > maxAttempts) {
-              feedback.textContent = "No more attempts!";
+          .then(res => res.json())
+          .then(data => {
+            if (data.result === 'correct') {
+              gameWon = true;
+              fillRow(attemptNumber, userGuess, "correct!");
+              guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "correct!" });
+              feedback.textContent = "Correct! Well done.";
               endGame();
+            } else if (data.result === 'artist') {
+              // Artist is correct, but not the song
+              fillRow(attemptNumber, userGuess, "artist");
+              guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "artist" });
+              feedback.textContent = "Right artist, but wrong song!";
+              
+              // Instead of calling markWrongAttempt, simply advance the attempt:
+              attemptNumber++;
+              if (attemptNumber > maxAttempts) {
+                feedback.textContent = "No more attempts!";
+                endGame();
+              } else {
+                goToNextSlice();
+              }
+              saveGameState();
             } else {
-              goToNextSlice();
+              feedback.textContent = "Wrong guess!";
+              markWrongAttempt(userGuess);
             }
-            saveGameState();
-          }
-          
-        })
-        .catch(err => {
-          console.error(err);
-          feedback.textContent = "Error checking guess.";
-        })
-        .finally(() => {
-          guessInput.value = '';
-        });
-    });    
+          })
+          .catch(err => {
+            console.error(err);
+            feedback.textContent = "Error checking guess.";
+          })
+          .finally(() => {
+            guessInput.value = '';
+          });
+      });
+
 });
