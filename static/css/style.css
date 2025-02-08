@@ -351,3 +351,68 @@ body {
   from { bottom: 30px; opacity: 1; }
   to { bottom: 0; opacity: 0; }
 }
+.minimal-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fafafa;
+}
+
+.minimal-card a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.card-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.2em;
+  color: #1a1a1a; /* Darker text for readability on light background */
+}
+
+.card-artist {
+  margin: 0;
+  color: #333; /* Also dark, but slightly lighter than the title */
+}
+
+.share-button {
+  background: #1DB954;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s ease;
+}
+.share-button:hover {
+  background: #1ed760;
+}
+
+@keyframes pulse {
+  0%   { background-color: #062410; } /* dark green */
+  50%  { background-color: #117133; } /* light green */
+  100% { background-color: #1DB954; }
+}
+
+/* .big-play-btn.playing {
+  background: url('/static/images/dancing-bars.gif') center center no-repeat;
+  background-size: contain;
+} */

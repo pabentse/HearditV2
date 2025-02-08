@@ -134,17 +134,48 @@ document.addEventListener('DOMContentLoaded', () => {
       playButton.style.display = 'none';
       skipButton.style.display = 'none';
       guessForm.style.display = 'none';
-  
-      // Show SoundCloud iframe
-      scIframe.style.display = 'block';
-  
-      // Create share button
+      scIframe.style.display = 'none';
+
+        // Ensure the song continues playing.
+  widget.play();
+
+    
+      const guessHistory = document.getElementById('guess-history');
+      const trackUrl = document.getElementById('correct-track').value;
+      const correctAnswer = document.getElementById('correct-answer').value; // e.g. "Blinding Lights - The Weeknd"
+      const parts = correctAnswer.split(' - ');
+      const songTitle = parts[0];
+      const artist = parts[1] || '';
+    
+      // Use SoundCloud's oEmbed to get the thumbnail URL.
+      fetch(`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(trackUrl)}`)
+        .then(response => response.json())
+        .then(data => {
+          // Build our custom minimal card.
+          const card = document.createElement('div');
+          card.classList.add('minimal-card');
+          card.innerHTML = `
+            <a href="${trackUrl}" target="_blank">
+              <img src="${data.thumbnail_url}" alt="${songTitle}" class="card-thumbnail" />
+              <div class="card-info">
+                <h2 class="card-title">${songTitle}</h2>
+                <p class="card-artist">${artist}</p>
+              </div>
+            </a>
+          `;
+          // Replace the guess history with our custom card.
+          guessHistory.innerHTML = '';
+          guessHistory.appendChild(card);
+        })
+        .catch(error => {
+          console.error('Error fetching SoundCloud oEmbed info:', error);
+          guessHistory.innerHTML = `<a href="${trackUrl}" target="_blank">View song on SoundCloud</a>`;
+        });
+    
       createShareButton();
-  
-      // Save final state
       saveGameState();
-    }
-  
+    }    
+       
     // 6) Move to next slice or end
     function goToNextSlice() {
       sliceIndex++;
@@ -336,10 +367,10 @@ document.addEventListener('DOMContentLoaded', () => {
         widget.bind(SC.Widget.Events.PLAY_PROGRESS, (eventData) => {
           const ms = eventData.currentPosition;
           updateCurrentBar(ms);
-          if (ms >= unlockedDuration * 1000) {
+          if (!gameOver && ms >= unlockedDuration * 1000) {
             widget.pause();
           }
-        });
+        });        
       });
   
       // PLAY button on-click
