@@ -2516,58 +2516,72 @@
     },
     {
         "url": "https://soundcloud.com/creedence-clearwater-revival/have-you-ever-seen-the-rain-2",
-        "answer": "Have You Ever Seen the Rain? - Creedence Clearwater Revival"
+        "answer": "Have You Ever Seen the Rain? - Creedence Clearwater Revival",
+        "artist": "Creedence Clearwater Revival"
     },
     {
         "url": "https://soundcloud.com/billieeilish/when-the-partys-over",
-        "answer": "When the Party's Over - Billie Eilish"
+        "answer": "When the Party's Over - Billie Eilish",
+        "artist": "Billie Eilish"
     },
     {
         "url": "https://soundcloud.com/beyonce/beyonce-texas-hold-em",
-        "answer": "Texas Hold 'Em - Beyoncé"
+        "answer": "Texas Hold 'Em - Beyoncé",
+        "artist": "Beyoncé"
     },
     {
         "url": "https://soundcloud.com/al-green-official/tired-of-being-alone-3",
-        "answer": "Tired of Being Alone - Al Green"
+        "answer": "Tired of Being Alone - Al Green",
+        "artist": "Al Green"
     },
     {
         "url": "https://soundcloud.com/dualipa/houdini",
-        "answer": "Houdini - Dua Lipa"
+        "answer": "Houdini - Dua Lipa",
+        "artist": "Dua Lipa"
     },
     {
         "url": "https://soundcloud.com/marvin-gaye/whats-going-on-1",
-        "answer": "What's Going On - Marvin Gaye"
+        "answer": "What's Going On - Marvin Gaye",
+        "artist": "Marvin Gaye"
     },
     {
         "url": "https://soundcloud.com/prince/purple-rain",
-        "answer": "Purple Rain - Prince"
+        "answer": "Purple Rain - Prince",
+        "artist": "Prince"
     },
     {
         "url": "https://soundcloud.com/kendrick-lamar-music/not-like-us",
-        "answer": "Not Like Us - Kendrick Lamar"
+        "answer": "Not Like Us - Kendrick Lamar",
+        "artist": "Kendrick Lamar"
     },
     {
         "url": "https://soundcloud.com/theweeknd/blinding-lights",
-        "answer": "Blinding Lights - The Weeknd"
+        "answer": "Blinding Lights - The Weeknd",
+        "artist": "The Weeknd"
     },
     {
         "url": "https://soundcloud.com/village-people/ymca",
-        "answer": "YMCA - Village People"
+        "answer": "YMCA - Village People",
+        "artist": "Village People"
     },
     {
         "url": "https://soundcloud.com/jerry-lee-lewis-official/great-balls-of-fire-46",
-        "answer": "Great Balls of Fire - Jerry Lee Lewis"
+        "answer": "Great Balls of Fire - Jerry Lee Lewis",
+        "artist": "Jerry Lee Lewis"
     },
     {
         "url": "https://soundcloud.com/oliviarodrigo/good-4-u-1",
-        "answer": "good 4 u - Olivia Rodrigo"
+        "answer": "good 4 u - Olivia Rodrigo",
+        "artist": "Olivia Rodrigo"
     },
     {
         "url": "https://soundcloud.com/asvpxrocky/tony-tone-feat-puff-daddy",
-        "answer": "Tony Tone - A$AP Rocky"
+        "answer": "Tony Tone - A$AP Rocky",
+        "artist": "A$AP Rocky"
     },
     {
         "url": "https://soundcloud.com/thechemicalbrothers/galvanize",
-        "answer": "Galvanize - The Chemical Brothers"
+        "answer": "Galvanize - The Chemical Brothers",
+        "artist": "The Chemical Brothers"
     }
 ]

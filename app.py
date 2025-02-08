@@ -186,14 +186,21 @@ def home(request: Request):
 
 @app.post("/guess")
 async def guess(request: Request):
-    """Check if the user's guess is correct."""
     data = await request.json()
     user_guess = data.get("guess", "").strip().lower()
     correct_answer = data.get("answer", "").strip().lower()
 
+    # Exact match wins the game
     if user_guess == correct_answer:
         return JSONResponse({"result": "correct"})
-    else:
-        return JSONResponse({"result": "incorrect"})
+
+    # If not an exact match, check if the guess matches the artist.
+    # We assume the correct_answer is formatted as "Song Title - Artist"
+    if "-" in correct_answer:
+        artist = correct_answer.split("-")[-1].strip()
+        if user_guess == artist:
+            return JSONResponse({"result": "artist"})
+    
+    return JSONResponse({"result": "incorrect"})
 
 serve()

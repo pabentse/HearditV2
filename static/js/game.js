@@ -109,14 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const rowEl = document.getElementById(`attempt-${attempt}`);
       if (!rowEl) return;
       
-      // Determine the icon (prefix)
       let prefix = "🟥"; // default for wrong
       if (status === "correct!") prefix = "🟩";
+      else if (status === "artist") prefix = "🟨"; // artist-only guess
       if (guessText.toLowerCase() === "skipped") prefix = "⬛";
-  
-      // If not skipped, find the matching song to show "Title - Artist"
+    
+      // If not skipped, try to show a nicer title from songsData.
       if (guessText.toLowerCase() !== "skipped") {
-        const match = songsData.find(s => 
+        const match = songsData.find(s =>
           s.answer && s.answer.toLowerCase() === guessText.toLowerCase()
         );
         if (match) {
@@ -124,9 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
       }
-      // Otherwise just show the skip or fallback
       rowEl.textContent = `${prefix} ${guessText}`;
-    }
+    }    
   
     // 5) End game
     function endGame() {
@@ -372,23 +371,22 @@ document.addEventListener('DOMContentLoaded', () => {
       guessForm.addEventListener('submit', (e) => {
         e.preventDefault();
         if (gameOver) return;
-  
+    
         const userGuess = guessInput.value.trim().toLowerCase();
         if (!userGuess) {
           feedback.textContent = "Please enter a guess.";
           return;
         }
-  
-        // Make sure the guess is in the songs list
-        const validGuess = songsData.some(song => 
+    
+        // Ensure the guess is valid (exists in songsData)
+        const validGuess = songsData.some(song =>
           (typeof song.answer === "string") && song.answer.toLowerCase() === userGuess
         );
         if (!validGuess) {
           feedback.textContent = "Please choose a valid song from the list.";
           return;
         }
-  
-        // Check with server
+    
         fetch('/guess', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -402,6 +400,12 @@ document.addEventListener('DOMContentLoaded', () => {
             guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "correct!" });
             feedback.textContent = "Correct! Well done.";
             endGame();
+          } else if (data.result === 'artist') {
+            // Artist is correct, but not the song
+            fillRow(attemptNumber, userGuess, "artist");
+            guessHistory.push({ attempt: attemptNumber, guess: userGuess, status: "artist" });
+            feedback.textContent = "Right artist, but wrong song!";
+            markWrongAttempt(userGuess);
           } else {
             feedback.textContent = "Wrong guess!";
             markWrongAttempt(userGuess);
@@ -414,5 +418,5 @@ document.addEventListener('DOMContentLoaded', () => {
         .finally(() => {
           guessInput.value = '';
         });
-      });
+    });    
 });
