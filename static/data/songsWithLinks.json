@@ -2583,5 +2583,45 @@
         "url": "https://soundcloud.com/thechemicalbrothers/galvanize",
         "answer": "Galvanize - The Chemical Brothers",
         "artist": "The Chemical Brothers"
+    },
+    {
+        "url": "https://soundcloud.com/the1975/its-not-living-if-its-not-with",
+        "answer": "It's Not Living (If It's Not with You) - The 1975",
+        "artist": "The 1975"
+    },
+    {
+        "url": "https://soundcloud.com/noahcyrusofficial/july",
+        "answer": "July - Noah Cyrus",
+        "artist": "Noah Cyrus"
+    },
+    {
+        "url": "https://soundcloud.com/thewho/baba-oriley-remastered-2022",
+        "answer": "Baba O'Riley - The Who",
+        "artist": "The Who"
+    },
+    {
+        "url": "https://soundcloud.com/boniver/holocene",
+        "answer": "Holocene - Bon Iver",
+        "artist": "Bon Iver"
+    },
+    {
+        "url": "https://soundcloud.com/iamcardib/up-1",
+        "answer": "Up - Cardi B",
+        "artist": "Cardi B"
+    },
+    {
+        "url": "https://soundcloud.com/kanyewest/nomorepartiesinla",
+        "answer": "No More Parties in LA - Kanye West",
+        "artist": "Kanye West"
+    },
+    {
+        "url": "https://soundcloud.com/childish-gambino/feels-like-summer",
+        "answer": "Feels Like Summer - Childish Gambino",
+        "artist": "Childish Gambino"
+    },
+    {
+        "url": "https://soundcloud.com/blonded/lens",
+        "answer": "Lens - Frank Ocean",
+        "artist": "Frank Ocean"
     }
 ]

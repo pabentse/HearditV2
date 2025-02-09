@@ -120,7 +120,7 @@ SOUNDCLOUD_TRACKS = [
         "answer": "YMCA - Village People",
     },
     {
-        "date": "2025-02-10",
+        "date": "2025-02-19",
         "url": "https://soundcloud.com/jerry-lee-lewis-official/great-balls-of-fire-46",
         "answer": "Great Balls of Fire - Jerry Lee Lewis"
     },
@@ -138,6 +138,46 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-12",
         "url": "https://soundcloud.com/thechemicalbrothers/galvanize",
         "answer": "Galvanize - The Chemical Brothers"
+    },
+    {
+        "date": "2025-02-13",
+        "url": "https://soundcloud.com/the1975/its-not-living-if-its-not-with",
+        "answer": "It's Not Living (If It's Not with You) - The 1975"
+    },
+    {
+        "date": "2025-02-14",
+        "url": "https://soundcloud.com/noahcyrusofficial/july",
+        "answer": "July - Noah Cyrus",
+    },
+    {
+        "date": "2025-02-15",
+        "url": "https://soundcloud.com/thewho/baba-oriley-remastered-2022",
+        "answer": "Baba O'Riley - The Who",
+    },
+    {
+        "date": "2025-02-16",
+        "url": "https://soundcloud.com/boniver/holocene",
+        "answer": "Holocene - Bon Iver",
+    },
+    {
+        "date": "2025-02-17",
+        "url": "https://soundcloud.com/iamcardib/up-1",
+        "answer": "Up - Cardi B",
+    },
+    {
+        "date": "2025-02-18",
+        "url": "https://soundcloud.com/kanyewest/nomorepartiesinla",
+        "answer": "No More Parties in LA - Kanye West",
+    },
+    {
+        "date": "2025-02-10",
+        "url": "https://soundcloud.com/childish-gambino/feels-like-summer",
+        "answer": "Feels Like Summer - Childish Gambino",
+    },
+    {
+        "date": "2025-02-20",
+        "url": "https://soundcloud.com/blonded/lens",
+        "answer": "Lens - Frank Ocean",
     }
 ]
 
