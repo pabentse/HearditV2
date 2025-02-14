@@ -178,6 +178,21 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-20",
         "url": "https://soundcloud.com/blonded/lens",
         "answer": "Lens - Frank Ocean",
+    },
+    {
+        "date": "2025-02-21",
+        "url": "https://soundcloud.com/larryfisherman/donald-trump",
+        "answer": "Donald Trump - Mac Miller",
+    },
+    {
+        "date": "2025-02-22",
+        "url": "https://soundcloud.com/cudderland/pursuit-of-happiness-nightmare",
+        "answer": "Pursuit of Happiness (Nightmare) - Kid Cudi",
+    },
+    {
+        "date": "2025-02-23",
+        "url": "https://soundcloud.com/joy-division-3/love-will-tear-us-apart",
+        "answer": "Love Will Tear Us Apart - Joy Division",
     }
 ]
 

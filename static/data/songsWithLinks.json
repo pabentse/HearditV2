@@ -2623,5 +2623,20 @@
         "url": "https://soundcloud.com/blonded/lens",
         "answer": "Lens - Frank Ocean",
         "artist": "Frank Ocean"
+    },
+    {
+        "url": "https://soundcloud.com/larryfisherman/donald-trump",
+        "answer": "Donald Trump - Mac Miller",
+        "artist": "Mac Miller"
+    },
+    {
+        "url": "https://soundcloud.com/cudderland/pursuit-of-happiness-nightmare",
+        "answer": "Pursuit of Happiness (Nightmare) - Kid Cudi",
+        "artist": "Kid Cudi"
+    },
+    {
+        "url": "https://soundcloud.com/joy-division-3/love-will-tear-us-apart",
+        "answer": "Love Will Tear Us Apart - Joy Division",
+        "artist": "Joy Division"
     }
 ]
