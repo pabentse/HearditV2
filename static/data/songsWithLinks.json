@@ -2638,5 +2638,50 @@
         "url": "https://soundcloud.com/joy-division-3/love-will-tear-us-apart",
         "answer": "Love Will Tear Us Apart - Joy Division",
         "artist": "Joy Division"
+    },
+    {
+        "url": "https://soundcloud.com/fleetwoodmacofficial/dreams-remastered",
+        "answer": "Dreams - Fleetwood Mac",
+        "artist": "Fleetwood Mac"
+    },
+    {
+        "url": "https://soundcloud.com/the-pussycat-dolls-official/buttons-album-version",
+        "answer": "Buttons - The Pussycat Dolls",
+        "artist": "The Pussycat Dolls"
+    },
+    {
+        "url": "https://soundcloud.com/jasonderulo/trumpets",
+        "answer": "Trumpets - Jason Derulo",
+        "artist": "Jason Derulo"
+    },
+    {
+        "url": "https://soundcloud.com/ledzeppelin/whole-lotta-love-4",
+        "answer": "Whole Lotta Love - Led Zeppelin",
+        "artist": "Led Zeppelin"
+    },
+    {
+        "url": "https://soundcloud.com/davidbowieofficial/04-starman-3",
+        "answer": "Starman - David Bowie",
+        "artist": "David Bowie"
+    },
+    {
+        "url": "https://soundcloud.com/genesis4/genesis-invisible-touch-2007",
+        "answer": "Invisible Touch - Genesis",
+        "artist": "Genesis"
+    },
+    {
+        "url": "https://soundcloud.com/migosatl/stir-fry",
+        "answer": "Stir Fry - Migos",
+        "artist": "Migos"
+    },
+    {
+        "url": "https://soundcloud.com/johnmayer/gravity",
+        "answer": "Gravity - John Mayer",
+        "artist": "John Mayer"
+    },
+    {
+        "url": "https://soundcloud.com/arianagrande/ariana-grande-positions",
+        "answer": "positions - Ariana Grande",
+        "artist": "Ariana Grande"
     }
 ]

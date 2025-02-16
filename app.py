@@ -180,7 +180,7 @@ SOUNDCLOUD_TRACKS = [
         "answer": "Lens - Frank Ocean",
     },
     {
-        "date": "2025-02-21",
+        "date": "2025-02-24",
         "url": "https://soundcloud.com/larryfisherman/donald-trump",
         "answer": "Donald Trump - Mac Miller",
     },
@@ -193,6 +193,51 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-02-23",
         "url": "https://soundcloud.com/joy-division-3/love-will-tear-us-apart",
         "answer": "Love Will Tear Us Apart - Joy Division",
+    },
+    {
+        "date": "2025-02-21",
+        "url": "https://soundcloud.com/fleetwoodmacofficial/dreams-remastered",
+        "answer": "Dreams - Fleetwood Mac",
+    },
+    {
+        "date": "2025-02-25",
+        "url": "https://soundcloud.com/the-pussycat-dolls-official/buttons-album-version",
+        "answer": "Buttons - The Pussycat Dolls",
+    },
+    {
+        "date": "2025-02-26",
+        "url": "https://soundcloud.com/jasonderulo/trumpets",
+        "answer": "Trumpets - Jason Derulo",
+    },
+    {
+        "date": "2025-02-27",
+        "url": "https://soundcloud.com/ledzeppelin/whole-lotta-love-4",
+        "answer": "Whole Lotta Love - Led Zeppelin",
+    },
+    {
+        "date": "2025-02-28",
+        "url": "https://soundcloud.com/davidbowieofficial/04-starman-3",
+        "answer": "Starman - David Bowie",
+    },
+    {
+        "date": "2025-03-01",
+        "url": "https://soundcloud.com/genesis4/genesis-invisible-touch-2007",
+        "answer": "Invisible Touch - Genesis",
+    },
+    {
+        "date": "2025-03-02",
+        "url": "https://soundcloud.com/migosatl/stir-fry",
+        "answer": "Stir Fry - Migos",
+    },
+    {
+        "date": "2025-03-03",
+        "url": "https://soundcloud.com/johnmayer/gravity",
+        "answer": "Gravity - John Mayer",
+    },
+    {
+        "date": "2025-03-04",
+        "url": "https://soundcloud.com/arianagrande/ariana-grande-positions",
+        "answer": "positions - Ariana Grande",
     }
 ]
 
