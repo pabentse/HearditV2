@@ -120,7 +120,7 @@ SOUNDCLOUD_TRACKS = [
         "answer": "YMCA - Village People",
     },
     {
-        "date": "2025-02-19",
+        "date": "2025-02-21",
         "url": "https://soundcloud.com/jerry-lee-lewis-official/great-balls-of-fire-46",
         "answer": "Great Balls of Fire - Jerry Lee Lewis"
     },
@@ -195,7 +195,7 @@ SOUNDCLOUD_TRACKS = [
         "answer": "Love Will Tear Us Apart - Joy Division",
     },
     {
-        "date": "2025-02-21",
+        "date": "2025-02-19",
         "url": "https://soundcloud.com/fleetwoodmacofficial/dreams-remastered",
         "answer": "Dreams - Fleetwood Mac",
     },
