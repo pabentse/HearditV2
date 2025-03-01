@@ -238,6 +238,41 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-03-04",
         "url": "https://soundcloud.com/arianagrande/ariana-grande-positions",
         "answer": "positions - Ariana Grande",
+    },
+    {
+        "date": "2025-03-05",
+        "url": "https://soundcloud.com/thegreatkhalid/young-dumb-broke",
+        "answer": "Young Dumb & Broke - Khalid",
+    },
+    {
+        "date": "2025-03-06",
+        "url": "https://soundcloud.com/interscope/lana-del-rey-summertime",
+        "answer": "Summertime Sadness - Lana Del Rey",  
+    },
+    {
+        "date": "2025-03-07",
+        "url": "https://soundcloud.com/justinbieber/mistletoe",
+        "answer": "Mistletoe - Justin Bieber",
+    },
+    {
+        "date": "2025-03-08",
+        "url": "https://soundcloud.com/lykkeli/i-follow-rivers",
+        "answer": "I Follow Rivers - Lykke Li",
+    },
+    {
+        "date": "2025-03-09",
+        "url": "https://soundcloud.com/coldplay/viva-la-vida",
+        "answer": "Viva la Vida - Coldplay",
+    },
+    {
+        "date": "2025-03-10",
+        "url": "https://soundcloud.com/katyperry/dark-horse-feat-juicy-j",
+        "answer": "Dark Horse - Katy Perry",
+    },
+    {
+        "date": "2025-03-11",
+        "url": "https://soundcloud.com/greenday/holiday-boulevard-of-broken-1",
+        "answer": "Holiday / Boulevard of Broken Dreams - Green Day",
     }
 ]
 

@@ -2683,5 +2683,35 @@
         "url": "https://soundcloud.com/arianagrande/ariana-grande-positions",
         "answer": "positions - Ariana Grande",
         "artist": "Ariana Grande"
+    },
+    {
+        "url": "https://soundcloud.com/thegreatkhalid/young-dumb-broke",
+        "answer": "Young Dumb & Broke - Khalid",
+        "artist": "Khalid"
+    },
+    {
+        "url": "https://soundcloud.com/interscope/lana-del-rey-summertime",
+        "answer": "Summertime Sadness - Lana Del Rey",
+        "artist": "Lana Del Rey"
+    },
+    {
+        "url": "https://soundcloud.com/justinbieber/mistletoe",
+        "answer": "Mistletoe - Justin Bieber",
+        "artist": "Justin Bieber"
+    },
+    {
+        "url": "https://soundcloud.com/lykkeli/i-follow-rivers",
+        "answer": "I Follow Rivers - Lykke Li",
+        "artist": "Lykke Li"
+    },
+    {
+        "url": "https://soundcloud.com/katyperry/dark-horse-feat-juicy-j",
+        "answer": "Dark Horse - Katy Perry",
+        "artist": "Katy Perry"
+    },
+    {
+        "url": "https://soundcloud.com/greenday/holiday-boulevard-of-broken-1",
+        "answer": "Holiday / Boulevard of Broken Dreams - Green Day",
+        "artist": "Green Day"
     }
 ]
