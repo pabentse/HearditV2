@@ -273,6 +273,31 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-03-11",
         "url": "https://soundcloud.com/greenday/holiday-boulevard-of-broken-1",
         "answer": "Holiday / Boulevard of Broken Dreams - Green Day",
+    },
+    {
+        "date": "2025-03-12",
+        "url": "https://soundcloud.com/breakbot/baby-im-yours-feat-irfane-1 ",
+        "answer": "Baby I'm Yours - Breakbot",
+    },
+    {
+        "date": "2025-03-13",
+        "url": "https://soundcloud.com/reenzo_m/let-it-happen",
+        "answer": "Let It Happen - Tame Impala",
+    },
+    {
+        "date": "2025-03-14",
+        "url": "https://soundcloud.com/kanyewest/i-love-it-kanye-west-lil-pump",
+        "answer": "I Love It - Kanye West & Lil Pump",
+    },
+    {
+        "date": "2025-03-15",
+        "url": "https://soundcloud.com/postmalone/white-iverson",
+        "answer": "White Iverson - Post Malone",
+    },
+    {
+        "date": "2025-03-16",
+        "url": "https://soundcloud.com/jamesblunt/goodbye-my-lover",
+        "answer": "Goodbye My Lover - James Blunt",
     }
 ]
 
