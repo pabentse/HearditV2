@@ -303,6 +303,16 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-03-20",
         "url": "https://soundcloud.com/sabrinacarpenter/sabrina-carpenter-espresso",
         "answer": "Espresso - Sabrina Carpenter",
+    },
+    {
+        "date": "2025-03-21",
+        "url": "https://soundcloud.com/britneyspears/tilltheworldends",
+        "answer": "Till the World Ends - Britney Spears",
+    },
+    {
+        "date": "2025-03-22",
+        "url": "https://soundcloud.com/brunomars/bruno-mars-anderson-paak-4",
+        "answer": "Leave the Door Open - Bruno Mars",
     }
 ]
 
