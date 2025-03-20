@@ -298,6 +298,11 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-03-16",
         "url": "https://soundcloud.com/jamesblunt/goodbye-my-lover",
         "answer": "Goodbye My Lover - James Blunt",
+    },
+    {
+        "date": "2025-03-20",
+        "url": "https://soundcloud.com/sabrinacarpenter/sabrina-carpenter-espresso",
+        "answer": "Espresso - Sabrina Carpenter",
     }
 ]
 
