@@ -318,6 +318,21 @@ SOUNDCLOUD_TRACKS = [
         "date": "2025-03-24",
         "url": "https://soundcloud.com/miauk/m-i-a-bad-girls",
         "answer": "Bad Girls - M.I.A.",
+    },
+    {
+        "date": "2025-03-25",
+        "url": "https://soundcloud.com/fergie-music/london-bridge-explicit-version",
+        "answer": "London Bridge - Fergie",
+    },
+    {
+        "date": "2025-03-26",
+        "url": "https://soundcloud.com/muse/supermassive-black-hole",
+        "answer": "Supermassive Black Hole - Muse",
+    },
+    {
+        "date": "2025-03-27",
+        "url": "https://soundcloud.com/black-eyed-peas-official/where-is-the-love-album",
+        "answer": "Where Is the Love? - The Black Eyed Peas",
     }
 ]
 
